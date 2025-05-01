@@ -8,7 +8,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .models import Image
-from .serializers import ImageSerializer
+from .serializers import ImageSerializer, PdfSerializer
 
 
 class ImageCreateAPIView(APIView):
@@ -65,6 +65,7 @@ from .models import Image
 
 
 class AddPDFAPIView(APIView):
+    serializer_class = PdfSerializer
     def post(self, request, *args, **kwargs):
         u_id = request.data.get("u_id")
         pdf_file = request.FILES.get("pdf_file")  # FILE sifatida olish MUHIM!

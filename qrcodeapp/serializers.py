@@ -20,3 +20,10 @@ class ImageSerializer(serializers.ModelSerializer):
             "created_at",    # Tizimda yaratilgan vaqt
         ]
         read_only_fields = ["u_id", "qr_image", "pdf_file", "created_at"]
+class PdfSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Image
+        fields = [
+            "pdf_file",
+            'u_id'
+        ]
