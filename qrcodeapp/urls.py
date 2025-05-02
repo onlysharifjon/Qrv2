@@ -1,12 +1,15 @@
-# urls.py
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import IDCardViewSet, QRScanView
-
-router = DefaultRouter()
-router.register(r'idcards', IDCardViewSet)
+# cards/urls.py
+from django.urls import path
+from .views import (
+    IDCardCreateAPIView, 
+    IDCardDetailAPIView, 
+    IDCardDownloadAPIView,
+    QRScanAPIView
+)
 
 urlpatterns = [
-    path('', include(router.urls)),
-    path('qr/', QRScanView.as_view(), name='qr-scan'),
+    path('register/', IDCardCreateAPIView.as_view(), name='idcard-create'),
+    path('idcards/<uuid:uuid>/', IDCardDetailAPIView.as_view(), name='idcard-detail'),
+    path('idcards/<uuid:uuid>/download/', IDCardDownloadAPIView.as_view(), name='idcard-download'),
+    path('qr/', QRScanAPIView.as_view(), name='qr-scan'),
 ]
