@@ -7,6 +7,6 @@ router = DefaultRouter()
 router.register(r'idcards', IDCardViewSet)
 
 urlpatterns = [
-    path('api/', include(router.urls)),
-    path('api/qr/', QRScanView.as_view(), name='qr-scan'),
+    path('', include(router.urls)),
+    path('qr/', QRScanView.as_view(), name='qr-scan'),
 ]
