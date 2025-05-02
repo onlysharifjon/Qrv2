@@ -113,9 +113,9 @@ class IDCardViewSet(viewsets.ModelViewSet):
         user_data = {
             'first_name': instance.first_name,
             'last_name': instance.last_name,
-            'surname': instance.surname,
-            'birthday': instance.birthday,
-            'id_pass': instance.id_pass,
+            'middle_name': instance.surname,
+            'birth_date': instance.birthday,
+            'passport': instance.id_pass,
             'country': instance.country,
             'phone': instance.phone,
             'id_badge': instance.id_badge,
