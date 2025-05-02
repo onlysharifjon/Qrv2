@@ -54,6 +54,15 @@ MIDDLEWARE = [
 ]
 CORS_ALLOW_ALL_ORIGINS = True
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'basic': {
+            'type': 'basic'
+        }
+    },
+    'SUPPORTED_SUBMIT_METHODS': ['get', 'post', 'put', 'delete', 'patch'],
+    'SCHEMES': ['https', 'http'],  # Bu yerga 'https' ni qo'shdik
+}
 
 ROOT_URLCONF = 'Core.urls'
 
