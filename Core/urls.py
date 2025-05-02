@@ -18,6 +18,8 @@ schema_view = get_schema_view(
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),
+   url=f'https://qr.abdugafforov.uz',  # Bu qatorni qo'shing
+   schemes=['https'], 
 )
 
 urlpatterns = [
