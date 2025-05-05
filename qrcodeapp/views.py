@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.conf import settings
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.http import FileResponse
 import os
 import uuid
@@ -280,3 +280,160 @@ class QRScanAPIView(APIView):
             return Response({
                 'error': f"Xatolik yuz berdi: {str(e)}"
             }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+class IDCardQR(APIView):
+    parser_classes = (MultiPartParser, FormParser)
+
+    @swagger_auto_schema(
+        operation_description = "ID karta yaratish va QR kod generatsiya qilish",
+        manual_parameters = [
+            openapi.Parameter(
+                'first_name',
+                openapi.IN_FORM,
+                type = openapi.TYPE_STRING,
+                required = True,
+                description = 'Ism'
+            ),
+            openapi.Parameter(
+                'last_name',
+                openapi.IN_FORM,
+                type = openapi.TYPE_STRING,
+                required = True,
+                description = 'Familiya'
+            ),
+            openapi.Parameter(
+                'surname',
+                openapi.IN_FORM,
+                type = openapi.TYPE_STRING,
+                required = True,
+                description = 'Otasining ismi'
+            ),
+            openapi.Parameter(
+                'birthday',
+                openapi.IN_FORM,
+                type = openapi.TYPE_STRING,
+                required = True,
+                description = 'Tug\'ilgan sana'
+            ),
+            openapi.Parameter(
+                'id_pass',
+                openapi.IN_FORM,
+                type = openapi.TYPE_STRING,
+                required = True,
+                description = 'Pasport raqami'
+            ),
+            openapi.Parameter(
+                'country',
+                openapi.IN_FORM,
+                type = openapi.TYPE_STRING,
+                required = True,
+                description = 'Mamlakat'
+            ),
+            openapi.Parameter(
+                'phone',
+                openapi.IN_FORM,
+                type = openapi.TYPE_STRING,
+                required = True,
+                description = 'Telefon'
+            ),
+            openapi.Parameter(
+                'id_badge',
+                openapi.IN_FORM,
+                type = openapi.TYPE_STRING,
+                required = True,
+                description = 'ID raqami'
+            ),
+            openapi.Parameter(
+                'user_image',
+                openapi.IN_FORM,
+                type = openapi.TYPE_FILE,
+                required = False,
+                description = 'Foydalanuvchi rasmi'
+            ),
+        ],
+        responses = {
+            201: openapi.Response(
+                description = "ID karta va QR kod muvaffaqiyatli yaratildi",
+                schema = IDCardSerializer
+            ),
+            400: "Noto'g'ri ma'lumot kiritildi",
+            500: "Serverda xatolik yuz berdi"
+        }
+    )
+    def post(self, request, format=None):
+        serializer = IDCardSerializer(data = request.data)
+
+        if serializer.is_valid():
+            # Saqlash
+            instance = serializer.save()
+
+            try:
+                # QR code yaratish (QR kod HTML sahifaga yo‘naltiradi)
+                qr_data = f"{request.build_absolute_uri('/api/qr-detail/')}?uuid={instance.uuid}"
+                qr_output_path = os.path.join(settings.MEDIA_ROOT, 'qr_images', f"{instance.uuid}.png")
+                os.makedirs(os.path.dirname(qr_output_path), exist_ok = True)
+
+                # QR kod yaratish
+                qr_image_path = create_qr_code(qr_data, qr_output_path)
+
+                # QR kod rasmini modelga saqlash
+                with open(qr_image_path, 'rb') as f:
+                    instance.qr_image.save(f"{instance.uuid}.png", File(f))
+
+                # Muvaffaqiyatli javob
+                return Response({
+                    'id_card': serializer.data,
+                    'qr_url': qr_data
+                }, status = status.HTTP_201_CREATED)
+
+            except Exception as e:
+                # Xatolik yuz bersa, ID karta ma'lumotlarini qaytaramiz
+                return Response({
+                    'error': f"QR kod yaratishda xatolik: {str(e)}",
+                    'id_card': serializer.data
+                }, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        return Response(serializer.errors, status = status.HTTP_400_BAD_REQUEST)
+
+
+
+
+class QRDetailAPIView(APIView):
+    @swagger_auto_schema(
+        operation_description = "QR kod skanerlash natijasida ID karta ma'lumotlarini HTML sahifada ko'rsatish",
+        manual_parameters = [
+            openapi.Parameter(
+                'uuid',
+                openapi.IN_QUERY,
+                description = "ID kartaning UUID si",
+                type = openapi.TYPE_STRING,
+                required = True
+            )
+        ],
+        responses = {
+            200: openapi.Response(
+                description = "ID karta ma'lumotlari HTML sahifada ko'rsatildi",
+                schema = openapi.Schema(type = openapi.TYPE_OBJECT)
+            ),
+            400: "UUID parametri ko'rsatilmadi",
+            404: "ID karta topilmadi",
+            500: "Serverda xatolik yuz berdi"
+        }
+    )
+    def get(self, request, format=None):
+        uuid = request.query_params.get('uuid')
+
+        if not uuid:
+            return Response({
+                'error': "UUID parametri kerak"
+            }, status = status.HTTP_400_BAD_REQUEST)
+
+        try:
+            id_card = get_object_or_404(IDCard, uuid = uuid)
+            return render(request, 'id_card_detail.html', {'id_card': id_card})
+        except Exception as e:
+            return Response({
+                'error': f"Xatolik yuz berdi: {str(e)}"
+            }, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
