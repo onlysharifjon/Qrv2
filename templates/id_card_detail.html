@@ -1,10 +1,11 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ID Card Details</title>
+<title>Nusuk Card Detail</title>
+    <link rel="icon" type="image/png" href="{% static 'bage-icon1.png' %}">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
@@ -15,36 +16,47 @@
   body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #6b73ff 0%, #000dff 100%);
+    background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     padding: 20px;
-    color: #333;
+    color: #222;
   }
 
   .id-card {
     background: #fff;
-    border-radius: 15px;
+    border-radius: 12px;
     width: 340px;
     max-width: 100%;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    user-select: none;
+    user-select: text;
+    border: none;
+    padding-bottom: 20px;
+      transition: transform 0.3s ease;
+  }
+  .id-card:hover {
+  transform: scale(1.05);
   }
 
   .id-card-header {
-    background: #000dff;
+    background: #00b09b;
     padding: 18px 20px;
     color: #fff;
     text-align: center;
-    font-weight: 700;
-    font-size: 1.5rem;
-    letter-spacing: 1.4px;
-    text-transform: uppercase;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    position: relative;
+    font-weight: 600;
+    font-size: 1.3rem;
+    letter-spacing: 1.2px;
+    border-bottom: none;
+    height: 80px; /* Increased header height */
   }
 
   .photo-wrapper {
@@ -52,10 +64,11 @@
     height: 120px;
     border-radius: 50%;
     overflow: hidden;
-    border: 5px solid #fff;
-    margin: 20px auto;
+    border: 4px solid #fff;
+    margin: 0 auto;
     background: #eee;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    display: inline-block;
   }
 
   .photo-wrapper img {
@@ -66,7 +79,7 @@
   }
 
   .card-body {
-    padding: 0 25px 30px;
+    padding: 0 25px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
@@ -75,38 +88,41 @@
   .field-row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     font-size: 1rem;
-    color: #222;
+    color: #333;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
   }
 
   .field-label {
     font-weight: 600;
-    color: #000dff;
+    color: #00b09b;
   }
 
   .field-value {
     font-weight: 400;
-    color: #444;
+    color: #555;
     max-width: 55%;
     text-align: right;
     word-wrap: break-word;
   }
 
   .id-badge {
-    margin-top: 22px;
-    background: #f0f5ff;
-    border: 2px solid #000dff;
-    border-radius: 10px;
-    padding: 12px 20px;
-    font-weight: 700;
-    font-size: 1.2rem;
+    margin-top: 24px;
+    background: #f7fbf9;
+    border: 2px solid #00b09b;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 600;
+    font-size: 1.1rem;
     text-align: center;
-    letter-spacing: 1.2px;
-    color: #000dff;
+    letter-spacing: 1px;
+    color: #00b09b;
     user-select: text;
   }
 
+  /* Responsive for mobile */
   @media (max-width: 400px) {
     .id-card {
       width: 100%;
@@ -116,6 +132,9 @@
       flex-direction: column;
       align-items: flex-start;
       gap: 4px;
+      border-bottom: 1px solid #f0f0f0;
+      margin-bottom: 10px;
+      padding-bottom: 7px;
     }
     .field-value {
       max-width: 100%;
@@ -131,42 +150,44 @@
 <body>
   <article class="id-card" role="region" aria-label="ID Card Detail">
     <header class="id-card-header">
-      ID Card Details
+      {{ company_name|default:"nusuk Card" }}
     </header>
-    <figure class="photo-wrapper" aria-label="User Photo">
-      <img src="{% if id_card.user_image %}{{ id_card.user_image.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="User photo of {{ id_card.first_name }} {{ id_card.last_name }}" />
-    </figure>
+    <div style="position: relative; margin-top: 10px; margin-bottom: 20px; z-index: 10; text-align: center;">
+      <div class="photo-wrapper" aria-label="Foydalanuvchi Surati">
+        <img src="{% if id_card.user_image %}{{ id_card.user_image.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}" alt="Foydalanuvchi surati - {{ id_card.first_name|default_if_none:'' }} {{ id_card.last_name|default_if_none:'' }}" />
+      </div>
+    </div>
     <section class="card-body">
       <div class="field-row" tabindex="0">
         <span class="field-label">First Name:</span>
-        <span class="field-value">{{ id_card.first_name }}</span>
+        <span class="field-value">{{ id_card.first_name|default_if_none:"" }}</span>
       </div>
       <div class="field-row" tabindex="0">
         <span class="field-label">Last Name:</span>
-        <span class="field-value">{{ id_card.last_name }}</span>
+        <span class="field-value">{{ id_card.last_name|default_if_none:"" }}</span>
       </div>
       <div class="field-row" tabindex="0">
         <span class="field-label">Surname:</span>
-        <span class="field-value">{{ id_card.surname }}</span>
+        <span class="field-value">{{ id_card.surname|default_if_none:"" }}</span>
       </div>
       <div class="field-row" tabindex="0">
-        <span class="field-label">Birthday:</span>
-        <span class="field-value">{{ id_card.birthday }}</span>
+        <span class="field-label">Birthday date:</span>
+        <span class="field-value">{{ id_card.birthday|default_if_none:"" }}</span>
       </div>
       <div class="field-row" tabindex="0">
-        <span class="field-label">ID / PASS:</span>
-        <span class="field-value">{{ id_card.id_pass }}</span>
+        <span class="field-label">Passport:</span>
+        <span class="field-value">{{ id_card.id_pass|default_if_none:"" }}</span>
       </div>
       <div class="field-row" tabindex="0">
         <span class="field-label">Country:</span>
-        <span class="field-value">{{ id_card.country }}</span>
+        <span class="field-value">{{ id_card.country|default_if_none:"" }}</span>
       </div>
       <div class="field-row" tabindex="0">
         <span class="field-label">Phone:</span>
-        <span class="field-value">{{ id_card.phone }}</span>
+        <span class="field-value">{{ id_card.phone|default_if_none:"" }}</span>
       </div>
-      <div class="id-badge" tabindex="0" aria-label="ID Badge Number">
-        ID Badge: {{ id_card.id_badge }}
+      <div class="id-badge" tabindex="0" aria-label="ID Badge Raqami">
+        ID Badge: {{ id_card.id_badge|default_if_none:"" }}
       </div>
     </section>
   </article>
