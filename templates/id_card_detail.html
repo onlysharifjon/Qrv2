@@ -154,7 +154,7 @@
     </header>
     <div style="position: relative; margin-top: 10px; margin-bottom: 20px; z-index: 10; text-align: center;">
       <div class="photo-wrapper" aria-label="Foydalanuvchi Surati">
-        <img src="{% if id_card.user_image %}{{ id_card.user_image.url }}{% else %}{% static 'images/default_avatar.png' %}{% endif %}" alt="Foydalanuvchi surati - {{ id_card.first_name|default_if_none:'' }} {{ id_card.last_name|default_if_none:'' }}" />
+        <img src="{% if id_card.user_image %}{{ id_card.user_image.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Foydalanuvchi surati - {{ id_card.first_name|default_if_none:'' }} {{ id_card.last_name|default_if_none:'' }}" />
       </div>
     </div>
     <section class="card-body">
