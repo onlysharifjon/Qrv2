@@ -371,7 +371,7 @@ class IDCardQR(APIView):
 
             try:
                 # QR code yaratish (QR kod HTML sahifaga yo‘naltiradi)
-                qr_data = f"{request.build_absolute_uri('/api/qr-detail/')}?uuid={instance.uuid}"
+                qr_data = f"{request.build_absolute_uri('/api/qr-detail/')}{instance.uuid}/"
                 qr_output_path = os.path.join(settings.MEDIA_ROOT, 'qr_images', f"{instance.uuid}.png")
                 os.makedirs(os.path.dirname(qr_output_path), exist_ok = True)
 
@@ -402,38 +402,21 @@ class IDCardQR(APIView):
 
 class QRDetailAPIView(APIView):
     @swagger_auto_schema(
-        operation_description = "QR kod skanerlash natijasida ID karta ma'lumotlarini HTML sahifada ko'rsatish",
-        manual_parameters = [
-            openapi.Parameter(
-                'uuid',
-                openapi.IN_QUERY,
-                description = "ID kartaning UUID si",
-                type = openapi.TYPE_STRING,
-                required = True
-            )
-        ],
-        responses = {
+        operation_description="QR kod skanerlash natijasida ID karta ma'lumotlarini HTML sahifada ko'rsatish",
+        responses={
             200: openapi.Response(
-                description = "ID karta ma'lumotlari HTML sahifada ko'rsatildi",
-                schema = openapi.Schema(type = openapi.TYPE_OBJECT)
+                description="ID karta ma'lumotlari HTML sahifada ko'rsatildi",
+                schema=openapi.Schema(type=openapi.TYPE_OBJECT)
             ),
-            400: "UUID parametri ko'rsatilmadi",
             404: "ID karta topilmadi",
             500: "Serverda xatolik yuz berdi"
         }
     )
-    def get(self, request, format=None):
-        uuid = request.query_params.get('uuid')
-
-        if not uuid:
-            return Response({
-                'error': "UUID parametri kerak"
-            }, status = status.HTTP_400_BAD_REQUEST)
-
+    def get(self, request, uuid, format=None):
         try:
-            id_card = get_object_or_404(IDCard, uuid = uuid)
+            id_card = get_object_or_404(IDCard, uuid=uuid)
             return render(request, 'id_card_detail.html', {'id_card': id_card})
         except Exception as e:
             return Response({
                 'error': f"Xatolik yuz berdi: {str(e)}"
-            }, status = status.HTTP_500_INTERNAL_SERVER_ERROR)
+            }, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

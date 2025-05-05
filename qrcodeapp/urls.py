@@ -16,7 +16,7 @@ urlpatterns = [
     path('qr/', QRScanAPIView.as_view(), name='qr-scan'),
 
     path('qr-register/', IDCardQR.as_view(), name='qr-register'),
-    path('qr-detail/<uuid:uuid>/', QRDetailAPIView.as_view(), name='qr-detail'),
+    path('api/qr-detail/<uuid:uuid>/', QRDetailAPIView.as_view(), name='qr-detail')
 
 
 ]
