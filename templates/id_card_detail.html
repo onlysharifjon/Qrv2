@@ -1,195 +1,274 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="uz">
+<html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nusuk Card Detail</title>
-    <link rel="icon" type="image/png" href="{% static 'bage-icon1.png' %}">
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hajj Visa Permit</title>
+    <link rel="icon" type="image/x-icon" href="{% static 'bage-icon1.png' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-  * {
-    box-sizing: border-box;
-  }
+        .container {
+            background-color: white;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
 
-  body {
-    margin: 0;
-    font-family: 'Montserrat', sans-serif;
-    background: linear-gradient(135deg, #00b09b 0%, #96c93d 100%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    padding: 20px;
-    color: #222;
-  }
+        /* Language Toggle */
+        .language-toggle {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
 
-  .id-card {
-    background: #fff;
-    border-radius: 12px;
-    width: 340px;
-    max-width: 100%;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    user-select: text;
-    border: none;
-    padding-bottom: 20px;
-      transition: transform 0.3s ease;
-  }
-  .id-card:hover {
-  transform: scale(1.05);
-  }
+        .language-toggle button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #003087;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
 
-  .id-card-header {
-    background: #00b09b;
-    padding: 18px 20px;
-    color: #fff;
-    text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    position: relative;
-    font-weight: 600;
-    font-size: 1.3rem;
-    letter-spacing: 1.2px;
-    border-bottom: none;
-    height: 80px; /* Increased header height */
-  }
+        .language-toggle button.active {
+            background-color: #003087;
+        }
 
-  .photo-wrapper {
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 4px solid #fff;
-    margin: 0 auto;
-    background: #eee;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    display: inline-block;
-  }
+        .language-toggle button:not(.active) {
+            background-color: #f5f5f5;
+            color: #003087;
+        }
 
-  .photo-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+        /* User Photo */
+        .user-photo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
 
-  .card-body {
-    padding: 0 25px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-  }
+        .user-photo img {
+            width: 100px; /* Increased resolution to 100x100 pixels */
+            height: 100px; /* Increased resolution to 100x100 pixels */
+            background-color: #d3d3d3;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #003087;
+            border: 1px solid #003087;
+            border-radius: 5px;
+            object-fit: cover;
+        }
 
-  .field-row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 14px;
-    font-size: 1rem;
-    color: #333;
-    border-bottom: 1px solid #f0f0f0;
-    padding-bottom: 8px;
-  }
+        /* Permit Header */
+        .permit-header {
+            background-color: #d4a373;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
 
-  .field-label {
-    font-weight: 600;
-    color: #00b09b;
-  }
+        .permit-header h2 {
+            margin: 0;
+            font-size: 18px;
+        }
 
-  .field-value {
-    font-weight: 400;
-    color: #555;
-    max-width: 55%;
-    text-align: right;
-    word-wrap: break-word;
-  }
+        /* Permit Details */
+        .permit-details {
+            margin-bottom: 20px;
+        }
 
-  .id-badge {
-    margin-top: 24px;
-    background: #f7fbf9;
-    border: 2px solid #00b09b;
-    border-radius: 8px;
-    padding: 10px 20px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    text-align: center;
-    letter-spacing: 1px;
-    color: #00b09b;
-    user-select: text;
-  }
+        .detail {
+            margin-bottom: 15px;
+        }
 
-  /* Responsive for mobile */
-  @media (max-width: 400px) {
-    .id-card {
-      width: 100%;
-    }
-    .field-row {
-      font-size: 0.95rem;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
-      border-bottom: 1px solid #f0f0f0;
-      margin-bottom: 10px;
-      padding-bottom: 7px;
-    }
-    .field-value {
-      max-width: 100%;
-      text-align: left;
-    }
-    .id-badge {
-      font-size: 1rem;
-      padding: 10px 16px;
-    }
-  }
-</style>
+        .detail label {
+            display: block;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .detail p {
+            margin: 5px 0 0;
+            font-size: 16px;
+            font-weight: bold;
+            color: #003087;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #003087;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 12px;
+        }
+
+        /* Arabic Text Direction */
+        .arabic {
+            direction: rtl;
+            font-family: 'Amiri', serif;
+        }
+    </style>
 </head>
 <body>
-  <article class="id-card" role="region" aria-label="ID Card Detail">
-    <header class="id-card-header">
-      {{ company_name|default:"nusuk Card" }}
-    </header>
-    <div style="position: relative; margin-top: 10px; margin-bottom: 20px; z-index: 10; text-align: center;">
-      <div class="photo-wrapper" aria-label="Foydalanuvchi Surati">
-        <img src="{% if id_card.user_image %}{{ id_card.user_image.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Foydalanuvchi surati - {{ id_card.first_name|default_if_none:'' }} {{ id_card.last_name|default_if_none:'' }}" />
-      </div>
+    <div class="container">
+        <!-- Language Toggle -->
+        <div class="language-toggle">
+            <button class="lang-btn active" data-lang="en">ENGLISH</button>
+            <button class="lang-btn" data-lang="ar">عربي</button>
+        </div>
+
+        <!-- User Photo Placeholder -->
+        <div class="user-photo">
+            <img src="{% if id_card.user_image %}{{ id_card.user_image.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}">
+        </div>
+
+        <!-- Permit Header -->
+        <div class="permit-header">
+            <h2 id="permit-title">{{ company_name|default:"External Pilgrims MOFA Hajj Visa Number" }}</h2>
+        </div>
+
+        <!-- Permit Details -->
+        <div class="permit-details">
+            <div class="detail">
+                <label id="label-first-name">First Name</label>
+                <p id="first-name">{{ id_card.first_name|default_if_none:"" }}</p>
+            </div>
+            <div class="detail">
+                <label id="label-last-name">Last Name</label>
+                <p id="last-name">{{ id_card.last_name|default_if_none:"" }}</p>
+            </div>
+            <div class="detail">
+                <label id="label-surname">Surname</label>
+                <p id="surname">{{ id_card.surname|default_if_none:"" }}</p>
+            </div>
+            <div class="detail">
+                <label id="label-dob">Birthday date</label>
+                <p id="dob">{{ id_card.birthday|default_if_none:"" }}</p>
+            </div>
+            <div class="detail">
+                <label id="label-passport">Passport</label>
+                <p id="passport">{{ id_card.id_pass|default_if_none:"" }}</p>
+            </div>
+            <div class="detail">
+                <label id="label-nationality">Country</label>
+                <p id="nationality">{{ id_card.country|default_if_none:"" }}</p>
+            </div>
+            <div class="detail">
+                <label id="label-permit-id">Permit ID</label>
+                <p id="permit-id">{{ id_card.id_badge|default_if_none:"" }}</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p id="footer-text">Under the supervision of the Supreme Hajj Committee</p>
+        </div>
     </div>
-    <section class="card-body">
-      <div class="field-row" tabindex="0">
-        <span class="field-label">First Name:</span>
-        <span class="field-value">{{ id_card.first_name|default_if_none:"" }}</span>
-      </div>
-      <div class="field-row" tabindex="0">
-        <span class="field-label">Last Name:</span>
-        <span class="field-value">{{ id_card.last_name|default_if_none:"" }}</span>
-      </div>
-      <div class="field-row" tabindex="0">
-        <span class="field-label">Surname:</span>
-        <span class="field-value">{{ id_card.surname|default_if_none:"" }}</span>
-      </div>
-      <div class="field-row" tabindex="0">
-        <span class="field-label">Birthday date:</span>
-        <span class="field-value">{{ id_card.birthday|default_if_none:"" }}</span>
-      </div>
-      <div class="field-row" tabindex="0">
-        <span class="field-label">Passport:</span>
-        <span class="field-value">{{ id_card.id_pass|default_if_none:"" }}</span>
-      </div>
-      <div class="field-row" tabindex="0">
-        <span class="field-label">Country:</span>
-        <span class="field-value">{{ id_card.country|default_if_none:"" }}</span>
-      </div>
-      <div class="field-row" tabindex="0">
-        <span class="field-label">Phone:</span>
-        <span class="field-value">{{ id_card.phone|default_if_none:"" }}</span>
-      </div>
-      <div class="id-badge" tabindex="0" aria-label="ID Badge Raqami">
-        ID Badge: {{ id_card.id_badge|default_if_none:"" }}
-      </div>
-    </section>
-  </article>
+
+    <script>
+        const translations = {
+            en: {
+                permitTitle: "{{ company_name|default:'External Pilgrims MOFA Hajj Visa Number' }}",
+                labelFirstName: "First Name",
+                firstName: "{{ id_card.first_name|default_if_none:'' }}",
+                labelLastName: "Last Name",
+                lastName: "{{ id_card.last_name|default_if_none:'' }}",
+                labelSurname: "Surname",
+                surname: "{{ id_card.surname|default_if_none:'' }}",
+                labelDob: "Birthday date",
+                dob: "{{ id_card.birthday|default_if_none:'' }}",
+                labelPassport: "Passport",
+                passport: "{{ id_card.id_pass|default_if_none:'' }}",
+                labelNationality: "Country",
+                nationality: "{{ id_card.country|default_if_none:'' }}",
+                labelPermitId: "Permit ID",
+                permitId: "{{ id_card.id_badge|default_if_none:'' }}",
+                footerText: "Under the supervision of the Supreme Hajj Committee"
+            },
+            ar: {
+                permitTitle: "{{ company_name|default:'رقم تأشيرة الحج للحجاج الخارجيين MOFA' }}",
+                labelFirstName: "الاسم الأول",
+                firstName: "{{ id_card.first_name|default_if_none:'' }}",
+                labelLastName: "اسم العائلة",
+                lastName: "{{ id_card.last_name|default_if_none:'' }}",
+                labelSurname: "اللقب",
+                surname: "{{ id_card.surname|default_if_none:'' }}",
+                labelDob: "تاريخ الميلاد",
+                dob: "{{ id_card.birthday|default_if_none:'' }}",
+                labelPassport: "جواز السفر",
+                passport: "{{ id_card.id_pass|default_if_none:'' }}",
+                labelNationality: "الدولة",
+                nationality: "{{ id_card.country|default_if_none:'' }}",
+                labelPermitId: "معرف التصريح",
+                permitId: "{{ id_card.id_badge|default_if_none:'' }}",
+                footerText: "تحت إشراف اللجنة العليا للحج"
+            }
+        };
+
+        const langButtons = document.querySelectorAll('.lang-btn');
+        const container = document.querySelector('.container');
+
+        langButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                langButtons.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                button.classList.add('active');
+
+                // Get selected language
+                const lang = button.getAttribute('data-lang');
+
+                // Update text content
+                document.getElementById('permit-title').textContent = translations[lang].permitTitle;
+                document.getElementById('label-first-name').textContent = translations[lang].labelFirstName;
+                document.getElementById('first-name').textContent = translations[lang].firstName;
+                document.getElementById('label-last-name').textContent = translations[lang].labelLastName;
+                document.getElementById('last-name').textContent = translations[lang].lastName;
+                document.getElementById('label-surname').textContent = translations[lang].labelSurname;
+                document.getElementById('surname').textContent = translations[lang].surname;
+                document.getElementById('label-dob').textContent = translations[lang].labelDob;
+                document.getElementById('dob').textContent = translations[lang].dob;
+                document.getElementById('label-passport').textContent = translations[lang].labelPassport;
+                document.getElementById('passport').textContent = translations[lang].passport;
+                document.getElementById('label-nationality').textContent = translations[lang].labelNationality;
+                document.getElementById('nationality').textContent = translations[lang].nationality;
+                document.getElementById('label-permit-id').textContent = translations[lang].labelPermitId;
+                document.getElementById('permit-id').textContent = translations[lang].permitId;
+                document.getElementById('footer-text').textContent = translations[lang].footerText;
+
+                // Toggle Arabic RTL and font
+                if (lang === 'ar') {
+                    container.classList.add('arabic');
+                } else {
+                    container.classList.remove('arabic');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
