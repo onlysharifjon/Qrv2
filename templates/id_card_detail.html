@@ -13,7 +13,7 @@
     <style>
         body {
             font-family: Helvetica, Arial, sans-serif;
-            background-color: #f5f5f5;
+            background-color: #273550;
             margin: 0;
             padding: 0;
             display: flex;
@@ -30,6 +30,7 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             box-sizing: border-box;
             position: relative;
+            min-height: 600px; /* Minimal balandlikni belgilash */
         }
 
         /* Language Toggle */
@@ -85,21 +86,22 @@
         .permit-header {
             background-color: #ab8556;
             color: white;
-            text-align: center;
-            padding: 10px;
+            text-align: left;
+            padding: 20px;
             margin-bottom: 20px;
+            line-height: 1.5;
         }
 
         .permit-header h2 {
             font-family: "Noto Sans Canadian Aboriginal", sans-serif;
             font-weight: 900;
             margin: 0;
-            font-size: 18px;
+            font-size: 20px;
         }
 
         /* Permit Details */
         .permit-details {
-            margin-bottom: 20px;
+            margin-bottom: 60px; /* Footer bilan qoplanmasligi uchun */
         }
 
         .detail {
@@ -134,7 +136,10 @@
             color: white;
             text-align: center;
             padding: 10px;
-
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
         }
 
         .footer p {
@@ -147,6 +152,30 @@
         .arabic {
             direction: rtl;
             font-family: 'Amiri', serif;
+        }
+
+        /* Arab tilida labellar shriftini kichiklashtirish */
+        .arabic .detail label {
+            font-size: 10px;
+            text-align: right;
+        }
+
+        /* Arab tilida matnlarni o'ng tarafga tekislash */
+        .arabic .detail p {
+            text-align: right;
+        }
+
+        /* Mobil qurilmalar uchun qo'shimcha stillar */
+        @media screen and (max-width: 480px) {
+            .container {
+                max-width: 100%;
+                margin: 0;
+                border-radius: 0;
+            }
+
+            .language-toggle button {
+                width: 50%;
+            }
         }
     </style>
 </head>
@@ -249,9 +278,18 @@
 
         const langButtons = document.querySelectorAll('.lang-btn');
         const container = document.querySelector('.container');
+        const detailLabels = document.querySelectorAll('.detail label');
+
+        // Konteyner balandligini saqlash uchun
+        let originalHeight = 0;
 
         langButtons.forEach(button => {
             button.addEventListener('click', () => {
+                // Konteyner balandligini saqlash
+                if (originalHeight === 0) {
+                    originalHeight = container.offsetHeight;
+                }
+
                 // Remove active class from all buttons
                 langButtons.forEach(btn => btn.classList.remove('active'));
                 // Add active class to clicked button
@@ -283,6 +321,11 @@
                     container.classList.add('arabic');
                 } else {
                     container.classList.remove('arabic');
+                }
+
+                // Balandlikni qayta moslash (agar kerak bo'lsa)
+                if (originalHeight > 0 && container.offsetHeight < originalHeight) {
+                    container.style.minHeight = originalHeight + 'px';
                 }
             });
         });
