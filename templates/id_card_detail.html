@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hajj Visa Permit</title>
     <link rel="icon" type="image/x-icon" href="{% static 'bage-icon1.png' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&family=Amiri&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Canadian+Aboriginal:wght@100..900&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: Helvetica, Arial, sans-serif;
             background-color: #f5f5f5;
             margin: 0;
             padding: 0;
@@ -25,34 +28,38 @@
             max-width: 400px;
             border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
             box-sizing: border-box;
+            position: relative;
         }
 
         /* Language Toggle */
         .language-toggle {
             display: flex;
-            justify-content: space-between;
             margin-bottom: 20px;
+            position: relative;
         }
 
         .language-toggle button {
-            padding: 10px 20px;
+            flex: 1;
+            font-family: "Noto Sans Canadian Aboriginal", sans-serif;
+            font-weight: bold;
+            width: 400px;
+            padding: 10px 0px;
             border: none;
-            background-color: #003087;
+            background-color: #4b5d81;
             color: white;
             font-size: 16px;
             cursor: pointer;
-            border-radius: 5px;
+
         }
 
         .language-toggle button.active {
-            background-color: #003087;
+            background-color: #4b5d81;
         }
 
         .language-toggle button:not(.active) {
             background-color: #f5f5f5;
-            color: #003087;
+            color: #4b5d81;
         }
 
         /* User Photo */
@@ -69,23 +76,23 @@
             justify-content: center;
             align-items: center;
             font-size: 24px;
-            color: #003087;
-            border: 1px solid #003087;
-            border-radius: 5px;
+            color: #4b5d81;
+            border: 1px solid #4b5d81;
             object-fit: cover;
         }
 
         /* Permit Header */
         .permit-header {
-            background-color: #d4a373;
+            background-color: #ab8556;
             color: white;
             text-align: center;
             padding: 10px;
-            border-radius: 5px;
             margin-bottom: 20px;
         }
 
         .permit-header h2 {
+            font-family: "Noto Sans Canadian Aboriginal", sans-serif;
+            font-weight: 900;
             margin: 0;
             font-size: 18px;
         }
@@ -97,33 +104,42 @@
 
         .detail {
             margin-bottom: 15px;
+            gap: 100px;
         }
 
         .detail label {
             display: block;
             color: #666;
             font-size: 14px;
+            margin: 0;
+            margin-right: 20px;
+            margin-left: 20px;
         }
 
         .detail p {
-            margin: 5px 0 0;
+            font-family: "Noto Sans Canadian Aboriginal", sans-serif;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin: 0;
+            margin-right: 20px;
+            margin-left: 20px;
             font-size: 16px;
-            font-weight: bold;
             color: #003087;
         }
 
         /* Footer */
         .footer {
-            background-color: #003087;
+            background-color: #4b5d81;
+            height: 20px;
             color: white;
             text-align: center;
             padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
+
         }
 
         .footer p {
-            margin: 0;
+            margin: 5px;
+            font-family: Helvetica, Arial, sans-serif;
             font-size: 12px;
         }
 
@@ -134,6 +150,7 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <!-- Language Toggle -->
@@ -156,31 +173,31 @@
         <div class="permit-details">
             <div class="detail">
                 <label id="label-first-name">First Name</label>
-                <p id="first-name">{{ id_card.first_name|default_if_none:"" }}</p>
+                <p id="first-name">{{ id_card.first_name|default_if_none:""|safe }}</p>
             </div>
             <div class="detail">
                 <label id="label-last-name">Last Name</label>
-                <p id="last-name">{{ id_card.last_name|default_if_none:"" }}</p>
+                <p id="last-name">{{ id_card.last_name|default_if_none:""|safe }}</p>
             </div>
             <div class="detail">
                 <label id="label-surname">Surname</label>
-                <p id="surname">{{ id_card.surname|default_if_none:"" }}</p>
+                <p id="surname">{{ id_card.surname|default_if_none:""|safe }}</p>
             </div>
             <div class="detail">
                 <label id="label-dob">Birthday date</label>
-                <p id="dob">{{ id_card.birthday|default_if_none:"" }}</p>
+                <p id="dob">{{ id_card.birthday|default_if_none:""|safe }}</p>
             </div>
             <div class="detail">
                 <label id="label-passport">Passport</label>
-                <p id="passport">{{ id_card.id_pass|default_if_none:"" }}</p>
+                <p id="passport">{{ id_card.id_pass|default_if_none:""|safe }}</p>
             </div>
             <div class="detail">
                 <label id="label-nationality">Country</label>
-                <p id="nationality">{{ id_card.country|default_if_none:"" }}</p>
+                <p id="nationality">{{ id_card.country|default_if_none:""|safe }}</p>
             </div>
             <div class="detail">
                 <label id="label-permit-id">Permit ID</label>
-                <p id="permit-id">{{ id_card.id_badge|default_if_none:"" }}</p>
+                <p id="permit-id">{{ id_card.id_badge|default_if_none:""|safe }}</p>
             </div>
         </div>
 
@@ -195,37 +212,37 @@
             en: {
                 permitTitle: "{{ company_name|default:'External Pilgrims MOFA Hajj Visa Number' }}",
                 labelFirstName: "First Name",
-                firstName: "{{ id_card.first_name|default_if_none:'' }}",
+                firstName: "{{ id_card.first_name|default_if_none:''|safe }}",
                 labelLastName: "Last Name",
-                lastName: "{{ id_card.last_name|default_if_none:'' }}",
+                lastName: "{{ id_card.last_name|default_if_none:''|safe }}",
                 labelSurname: "Surname",
-                surname: "{{ id_card.surname|default_if_none:'' }}",
+                surname: "{{ id_card.surname|default_if_none:''|safe }}",
                 labelDob: "Birthday date",
-                dob: "{{ id_card.birthday|default_if_none:'' }}",
+                dob: "{{ id_card.birthday|default_if_none:''|safe }}",
                 labelPassport: "Passport",
-                passport: "{{ id_card.id_pass|default_if_none:'' }}",
+                passport: "{{ id_card.id_pass|default_if_none:''|safe }}",
                 labelNationality: "Country",
-                nationality: "{{ id_card.country|default_if_none:'' }}",
+                nationality: "{{ id_card.country|default_if_none:''|safe }}",
                 labelPermitId: "Permit ID",
-                permitId: "{{ id_card.id_badge|default_if_none:'' }}",
+                permitId: "{{ id_card.id_badge|default_if_none:''|safe }}",
                 footerText: "Under the supervision of the Supreme Hajj Committee"
             },
             ar: {
                 permitTitle: "{{ company_name|default:'رقم تأشيرة الحج للحجاج الخارجيين MOFA' }}",
                 labelFirstName: "الاسم الأول",
-                firstName: "{{ id_card.first_name|default_if_none:'' }}",
+                firstName: "{{ id_card.first_name|default_if_none:''|safe }}",
                 labelLastName: "اسم العائلة",
-                lastName: "{{ id_card.last_name|default_if_none:'' }}",
+                lastName: "{{ id_card.last_name|default_if_none:''|safe }}",
                 labelSurname: "اللقب",
-                surname: "{{ id_card.surname|default_if_none:'' }}",
+                surname: "{{ id_card.surname|default_if_none:''|safe }}",
                 labelDob: "تاريخ الميلاد",
-                dob: "{{ id_card.birthday|default_if_none:'' }}",
+                dob: "{{ id_card.birthday|default_if_none:''|safe }}",
                 labelPassport: "جواز السفر",
-                passport: "{{ id_card.id_pass|default_if_none:'' }}",
+                passport: "{{ id_card.id_pass|default_if_none:''|safe }}",
                 labelNationality: "الدولة",
-                nationality: "{{ id_card.country|default_if_none:'' }}",
+                nationality: "{{ id_card.country|default_if_none:''|safe }}",
                 labelPermitId: "معرف التصريح",
-                permitId: "{{ id_card.id_badge|default_if_none:'' }}",
+                permitId: "{{ id_card.id_badge|default_if_none:''|safe }}",
                 footerText: "تحت إشراف اللجنة العليا للحج"
             }
         };
