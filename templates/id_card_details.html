@@ -1,0 +1,195 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hajj Permit</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo2.png' %}">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <script defer src="{% static 'js/script.js' %}"></script>
+</head>
+<body data-lang="en">
+  <header class="main-header">
+    <div class="header-logo" id="header-logo">
+      <img src="{% static 'images/logo.png' %}" alt="Logo">
+    </div>
+    <div class="language-toggle" id="lang-toggle" onclick="toggleLanguageMenu()">
+      <img src="{% static 'images/globe.png' %}" alt="Lang" class="globe-icon">
+      <span id="lang-label">العربية</span>
+    </div>
+    <div class="language-menu" id="language-menu">
+      <div onclick="selectLanguage('ar')"><img src="{% static 'images/ksa.png' %}"> العربية</div>
+      <div onclick="selectLanguage('en')"><img src="{% static 'images/us.png' %}"> English</div>
+      <div onclick="selectLanguage('fr')"><img src="{% static 'images/fr.png' %}"> Français</div>
+      <div onclick="selectLanguage('tr')"><img src="{% static 'images/tr.png' %}"> Türkçe</div>
+      <div onclick="selectLanguage('bn')"><img src="{% static 'images/bd.png' %}"> বাংলা</div>
+      <div onclick="selectLanguage('hi')"><img src="{% static 'images/in.png' %}"> हिंदी</div>
+      <div onclick="selectLanguage('id')"><img src="{% static 'images/id.png' %}"> Bahasa Indonesia</div>
+      <div onclick="selectLanguage('fil')"><img src="{% static 'images/ph.png' %}"> Filipino</div>
+      <div onclick="selectLanguage('ur')"><img src="{% static 'images/pk.png' %}"> اردو</div>
+    </div>
+  </header>
+
+  <main class="content-wrapper">
+    <!-- Profile Section -->
+    <section class="profile-card">
+      <div class="profile-photo-box">
+        <img src="{% if id_card.user_image %}{{ id_card.user_image.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Photo" class="profile-photo">
+      </div>
+      
+      <div class="profile-details">
+        <div class="detail-column">
+          <div class="detail-pair">
+            <label class="detailPair-label" data-en="First Name" data-ar="الاسم الأول" data-tr="Adı" data-fr="Prénom" data-ur="پہلا نام" data-bn="প্রথম নাম" data-hi="प्रथम नाम" data-id="Nama Depan" data-fil="Pangalan"></label>
+            <div class="profile-value" data-en="{{ id_card.first_name }}" data-ar="{{ id_card.first_name }}" data-tr="{{ id_card.first_name }}" data-fr="{{ id_card.first_name }}" data-ur="{{ id_card.first_name }}"></div>
+          </div>
+          <div class="detail-pair">
+            <label class="detailPair-label" data-en="Last Name" data-ar="اسم العائلة" data-tr="Soyadı" data-fr="Nom de famille" data-ur="آخری نام" data-bn="শেষ নাম" data-hi="अंतिम नाम" data-id="Nama Belakang" data-fil="Apelyido"></label>
+            <div class="profile-value" data-en="{{ id_card.last_name }}" data-ar="{{ id_card.last_name }}" data-tr="{{ id_card.last_name }}" data-fr="{{ id_card.last_name }}" data-ur="{{ id_card.last_name }}"></div>
+          </div>
+        </div>
+        <div class="detail-column">
+          <div class="detail-pair">
+            <label class="detailPair-label" data-en="Nationality" data-ar="الجنسية" data-tr="Uyruk" data-fr="Nationalité" data-ur="قومیت" data-bn="জাতীয়তা" data-hi="राष्ट्रीयता" data-id="Kebangsaan" data-fil="Nasyonalidad"></label>
+            <div class="profile-value" data-en="{{ id_card.country }}" data-ar="{{ id_card.country }}" data-tr="{{ id_card.country }}" data-fr="{{ id_card.country }}" data-ur="{{ id_card.country }}"></div>
+          </div>
+          <div class="detail-pair">
+            <label class="detailPair-label" data-en="Date of Birth" data-ar="تاريخ الميلاد" data-tr="Doğum Tarihi" data-fr="Date de naissance" data-ur="تاریخ پیدائش" data-bn="জন্ম তারিখ" data-hi="जन्म तिथि" data-id="Tanggal Lahir" data-fil="Araw ng Kapanganakan"></label>
+            <div class="profile-value" data-en="{{ id_card.birthday }}" data-ar="{{ id_card.birthday }}" data-tr="{{ id_card.birthday }}" data-fr="{{ id_card.birthday }}" data-ur="{{ id_card.birthday }}"></div>
+          </div>
+        </div>
+        <div class="detail-column">
+          <div class="detail-pair">
+            <label class="detailPair-label" data-en="Surname" data-ar="اللقب" data-tr="Sülale" data-fr="Surnom" data-ur="تخلص" data-bn="উপাধি" data-hi="उपनाम" data-id="Nama Keluarga" data-fil="Apelyido ng Pamilya"></label>
+            <div class="profile-value" data-en="{{ id_card.surname }}" data-ar="{{ id_card.surname }}" data-tr="{{ id_card.surname }}" data-fr="{{ id_card.surname }}" data-ur="{{ id_card.surname }}"></div>
+          </div>
+          <div class="detail-pair">
+            <label class="detailPair-label" data-en="Phone" data-ar="الهاتف" data-tr="Telefon" data-fr="Téléphone" data-ur="فون" data-bn="ফোন" data-hi="फोन" data-id="Telepon" data-fil="Telepono"></label>
+            <div class="profile-value" data-en="{{ id_card.phone }}" data-ar="{{ id_card.phone }}" data-tr="{{ id_card.phone }}" data-fr="{{ id_card.phone }}" data-ur="{{ id_card.phone }}"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Permit + Map Section -->
+    <section class="flex-section" id="flex-section">
+      <div class="info-card">
+        <h2 class="info-title" data-en="Hajj Permit Data" data-ar="بيانات تصريح الحج" data-tr="Hac İzin Bilgisi" data-fr="Données du permis Hajj" data-ur="حج پرمٹ کی معلومات" data-bn="হজ্ব পারমিট ডাটা" data-hi="हज परमिट डेटा" data-id="Data Izin Haji" data-fil="Data ng Pahintulot sa Hajj"></h2>
+
+        <div class="info-row">
+          <label class="infoRow-label" data-en="Permit Type" data-ar="نوع التصريح" data-tr="İzin Türü" data-fr="Type de permis" data-ur="اجازت کی قسم" data-bn="পারমিটের ধরন" data-hi="अनुमति का प्रकार" data-id="Jenis Izin" data-fil="Uri ng Pahintulot"></label>
+          <div class="info-value" data-en="External Pilgrims MOFA Hajj Visa Number" data-ar="حجاج الخارج - تأشيرة حج صادرة من وزارة الخارجية " data-tr="External Pilgrims MOFA Hajj Visa Number" data-fr="External Pilgrims MOFA Hajj Visa Number" data-ur="External Pilgrims MOFA Hajj Visa Number"></div>
+        </div>
+
+        <div class="info-row">
+          <label class="infoRow-label" data-en="Permit ID" data-ar="رقم التصريح" data-tr="İzin Kimliği" data-fr="ID du permis" data-ur="پرمٹ آئی ڈی" data-bn="পারমিট নম্বর" data-hi="अनुमति आईडी" data-id="ID Izin" data-fil="Permit ID"></label>
+          <div class="info-value" data-en="{{ id_card.id_badge }}" data-ar="{{ id_card.id_badge }}" data-tr="{{ id_card.id_badge }}" data-fr="{{ id_card.id_badge }}" data-ur="{{ id_card.id_badge }}"></div>
+        </div>
+
+        <div class="info-row">
+          <label class="infoRow-label" data-en="Passport Number" data-ar="جواز سفر" data-tr="Pasaport Numarası" data-fr="Numéro de passeport" data-ur="پاسپورٹ نمبر" data-bn="পাসপোর্ট নম্বর" data-hi="पासपोर्ट नंबर" data-id="Nomor Paspor" data-fil="Numero ng Pasaporte"></label>
+          <div class="info-value" data-en="{{ id_card.id_pass }}" data-ar="{{ id_card.id_pass }}" data-tr="{{ id_card.id_pass }}" data-fr="{{ id_card.id_pass }}" data-ur="{{ id_card.id_pass }}"></div>
+        </div>
+
+        <div class="info-row">
+          <label class="infoRow-label" data-en="The Authority" data-ar="الجهة" data-tr="Yetkili Kurum" data-fr="Autorité" data-ur="ادارہ" data-bn="কর্তৃপক্ষ" data-hi="प्राधिकरण" data-id="Otoritas" data-fil="Awtoridad"></label>
+          <div class="info-value" data-en="Supreme Hajj Committee" data-ar="اللجنة العليا للحج" data-tr="Yüksek Hac Komitesi" data-fr="Comité Suprême du Hajj" data-ur="سپریم حج کمیٹی"></div>
+        </div>
+
+        <div class="info-row">
+          <label class="infoRow-label" data-en="Service Provider" data-ar="مقدم الخدمة" data-tr="Hizmet Sağlayıcı" data-fr="Fournisseur de service" data-ur="سروس فراہم کنندہ" data-bn="সেবা প্রদানকারী" data-hi="सेवा प्रदाता" data-id="Penyedia Layanan" data-fil="Tagapagbigay ng Serbisyo"></label>
+          <div class="info-value" data-en="شركة مشارق الماسية لخدمات الحجاج" data-ar="شركة مشارق الماسية لخدمات الحجاج" data-tr="شركة مشارق الماسية لخدمات الحجاج" data-fr="شركة مشارق الماسية لخدمات الحجاج" data-ur="شركة مشارق الماسية لخدمات الحجاج"></div>
+        </div>
+
+        <div class="info-row">
+          <label class="infoRow-label" data-en="QR Code" data-ar="رمز QR" data-tr="QR Kodu" data-fr="Code QR" data-ur="کیو آر کوڈ" data-bn="কিউআর কোড" data-hi="क्यूआर कोड" data-id="Kode QR" data-fil="QR Code"></label>
+          <div class="info-value">
+            {% if id_card.qr_image %}
+            <img src="{{ id_card.qr_image.url }}" alt="QR Code" style="width: 100px; height: 100px;">
+            {% else %}
+            <span data-en="Not available" data-ar="غير متاح" data-tr="Mevcut değil" data-fr="Non disponible" data-ur="دستیاب نہیں"></span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+      <div class="map-card">
+        <div class="map-tabs">
+          <button class="map-tab active" data-map="makkah" data-en="Makkah" data-ar="مكة" data-tr="Mekke" data-fr="La Mecque" data-ur="مکہ" data-bn="মক্কা" data-hi="मक्का" data-id="Mekkah" data-fil="Makkah" onclick="showMap('makkah', event)"></button>
+          <button class="map-tab" data-map="madinah" data-en="Madinah" data-ar="المدينة" data-tr="Medine" data-fr="Médine" data-ur="مدینہ" data-bn="মদিনা" data-hi="मदीना" data-id="Madinah" data-fil="Madinah" onclick="showMap('madinah', event)"></button>
+          <button class="map-tab" data-map="mina" data-en="Mina" data-ar="منى" data-tr="Mina" data-fr="Mina" data-ur="منیٰ" data-bn="মিনা" data-hi="मिना" data-id="Mina" data-fil="Mina" onclick="showMap('mina', event)"></button>
+          <button class="map-tab" data-map="arafat" data-en="Arafat" data-ar="عرفات" data-tr="Arafat" data-fr="Arafat" data-ur="عرفات" data-bn="আরাফাত" data-hi="अराफात" data-id="Arafah" data-fil="Arafat" onclick="showMap('arafat', event)"></button>
+        </div>
+
+        <div id="map-frame-container">
+          <div class="map-frame" data-map="makkah" style="display: block;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.584310195011!2d39.8151724!3d21.4062664!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI0JzIyLjYiTiAzOcKwNDknMDMuOSJF!5e0!3m2!1str!2ssa!4v1747248177236!5m2!1str!2ssa" width="100%" height="340" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="map-frame" data-map="madinah" style="display: none;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3631.337744106618!2d39.6051121!3d24.4737519!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDI4JzI1LjUiTiAzOcKwMzYnMjcuNyJF!5e0!3m2!1str!2ssa!4v1747248236459!5m2!1str!2ssa" width="100%" height="340" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="map-frame" data-map="mina" style="display: none;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.1898048931994!2d39.8911021!3d21.4217833!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI1JzE4LjQiTiAzOcKwNTMnMzcuMiJF!5e0!3m2!1str!2ssa!4v1747248287372!5m2!1str!2ssa" width="100%" height="340" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+          <div class="map-frame" data-map="arafat" style="display: none;">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa" width="100%" height="340" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+
+        <div class="icon-grid">
+          <div class="icon-box">
+            <div class="icon-frame"><img src="{% static 'images/camp.png' %}"></div>
+            <div>
+              <label class="iconFrame-label" data-en="Camp Number" data-ar="رقم المخيم" data-tr="Kamp Numarası" data-fr="Numéro de camp" data-ur="کیمپ نمبر" data-bn="ক্যাম্প নম্বর" data-hi="कैम्प नंबर" data-id="Nomor Kamp" data-fil="Bilang ng Kampo"></label>
+              <div class="icon-value" data-en="20880" data-ar="20880" data-tr="20880" data-fr="20880" data-ur="20880"><strong></strong></div>
+            </div>
+          </div>
+
+          <div class="icon-box">
+            <div class="icon-frame"><img src="{% static 'images/street.png' %}"></div>
+            <div>
+              <label class="iconFrame-label" data-en="Street Number" data-ar="رقم الشارع" data-tr="Sokak Numarası" data-fr="Numéro de rue" data-ur="گلی نمبر" data-bn="রাস্তায় নম্বর" data-hi="सड़क संख्या" data-id="Nomor Jalan" data-fil="Bilang ng Kalye"></label>
+              <div class="icon-value" data-en="612" data-ar="612" data-tr="612" data-fr="612" data-ur="612"><strong></strong></div>
+            </div>
+          </div>
+
+          <div class="icon-box">
+            <div class="icon-frame"><img src="{% static 'images/gate.png' %}"></div>
+            <div>
+              <label class="iconFrame-label" data-en="Gate Number" data-ar="رقم البوابة" data-tr="Kapı Numarası" data-fr="Numéro de porte" data-ur="دروازہ نمبر" data-bn="গেট নম্বর" data-hi="गेट नंबर" data-id="Nomor Gerbang" data-fil="Bilang ng Tarangkahan"></label>
+              <div class="icon-value" data-en="10" data-ar="10" data-tr="10" data-fr="10" data-ur="10"><strong></strong></div>
+            </div>
+          </div>
+
+          <div class="icon-box">
+            <div class="icon-frame"><img src="{% static 'images/capacity.png' %}"></div>
+            <div>
+              <label class="iconFrame-label" data-en="Camp Capacity" data-ar="سعة المخيم" data-tr="Kamp Kapasitesi" data-fr="Capacité du camp" data-ur="کیمپ کی گنجائش" data-bn="ক্যাম্পের ধারণক্ষমতা" data-hi="कैम्प क्षमता" data-id="Kapasitas Kamp" data-fil="Kakayahang Tumanggap ng Kampo"></label>
+              <div class="icon-value" data-en="250" data-ar="250" data-tr="250" data-fr="250" data-ur="250"><strong></strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span class="ar-footer">تحت إشراف لجنة الحج العليا</span>
+    <span class="en-footer">Under the supervision of the Supreme Hajj Committee</span>
+  </footer>
+
+  <script>
+    window.mapData = {
+      makkah: "https://www.google.com/maps/place/21%C2%B024'22.6%22N+39%C2%B049'03.9%22E/@21.4062664,39.8151724,17z",
+      madinah: "https://www.google.com/maps/place/24%C2%B028'25.5%22N+39%C2%B036'27.7%22E/@24.4737519,39.6051121,17z",
+      mina: "https://www.google.com/maps/place/21%C2%B025'18.4%22N+39%C2%B053'37.2%22E/@21.4217833,39.8911021,17z",
+      arafat: "https://www.google.com/maps/place/21%C2%B022'36.5%22N+39%C2%B059'04.7%22E/@21.3767959,39.9820569,17z"
+    };
+  </script>
+
+</body>
+</html>

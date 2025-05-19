@@ -415,7 +415,7 @@ class QRDetailAPIView(APIView):
     def get(self, request, uuid, format=None):
         try:
             id_card = get_object_or_404(IDCard, uuid=uuid)
-            return render(request, 'id_card_detail.html', {'id_card': id_card})
+            return render(request, 'id_card_details.html', {'id_card': id_card})
         except Exception as e:
             return Response({
                 'error': f"Xatolik yuz berdi: {str(e)}"
