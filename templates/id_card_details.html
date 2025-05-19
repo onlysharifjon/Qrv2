@@ -5,33 +5,388 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hajj Permit</title>
-  <link rel="icon" type="image/png" href="{% static 'images/logo2.png' %}">
+  <link rel="icon" type="image/png" href="{% static 'logo2.png' %}">
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <style>
+    /* Main Styles */
+      :root {
+        --primary-color: #273550;
+        --accent-color: #ab8556;
+        --secondary-color: #4b5d81;
+        --background-color: #f7f7f7;
+        --text-color: #333;
+        --text-light: #666;
+        --border-radius: 12px;
+        --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', Arial, sans-serif;
+        background-color: var(--background-color);
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        color: var(--text-color);
+      }
+
+      /* Header Styles */
+      .main-header {
+        background-color: var(--primary-color);
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+      }
+
+      .header-logo img {
+        height: 40px;
+      }
+
+      .language-toggle {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        background-color: rgba(255, 255, 255, 0.15);
+        padding: 5px 12px;
+        border-radius: 20px;
+      }
+
+      .globe-icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+      }
+
+      .language-menu {
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        z-index: 100;
+        display: none;
+        width: 200px;
+        overflow: hidden;
+      }
+
+      .language-menu div {
+        padding: 12px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.2s;
+      }
+
+      .language-menu div:hover {
+        background-color: var(--background-color);
+      }
+
+      .language-menu img {
+        width: 20px;
+        height: 15px;
+        margin-right: 12px;
+        object-fit: cover;
+      }
+
+      /* RTL Support for Arabic and Urdu */
+      body[data-lang="ar"], body[data-lang="ur"] {
+        direction: rtl;
+      }
+
+      body[data-lang="ar"] .language-toggle, 
+      body[data-lang="ur"] .language-toggle {
+        flex-direction: row-reverse;
+      }
+
+      body[data-lang="ar"] .globe-icon, 
+      body[data-lang="ur"] .globe-icon {
+        margin-right: 0;
+        margin-left: 8px;
+      }
+
+      body[data-lang="ar"] .language-menu div, 
+      body[data-lang="ur"] .language-menu div {
+        flex-direction: row-reverse;
+      }
+
+      body[data-lang="ar"] .language-menu img, 
+      body[data-lang="ur"] .language-menu img {
+        margin-right: 0;
+        margin-left: 12px;
+      }
+
+      /* Content Styles */
+      .content-wrapper {
+        flex: 1;
+        padding: 20px;
+        max-width: 1200px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      /* Profile Card */
+      .profile-card {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        padding: 20px;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .profile-photo-box {
+        flex-shrink: 0;
+      }
+
+      .profile-photo {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 3px solid var(--accent-color);
+        object-fit: cover;
+      }
+
+      .profile-details {
+        flex: 1;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+
+      .detail-column {
+        flex: 1;
+        min-width: 200px;
+      }
+
+      .detail-pair {
+        margin-bottom: 15px;
+      }
+
+      .detailPair-label {
+        display: block;
+        color: var(--text-light);
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .profile-value {
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      /* Flex Section */
+      .flex-section {
+        display: flex;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .info-card, .map-card {
+        background-color: white;
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
+        flex: 1;
+        overflow: hidden;
+      }
+
+      .info-card {
+        padding: 20px;
+      }
+
+
+      .info-title {
+        color: var(--accent-color);
+        font-size: 20px;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      .info-row {
+        margin-bottom: 15px;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 12px;
+      }
+
+      .info-row:last-child {
+        border-bottom: none;
+      }
+
+      .infoRow-label {
+        display: block;
+        color: var(--text-light);
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      .info-value {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      /* Map Card */
+      .map-tabs {
+        display: flex;
+        background-color: #f1f1f1;
+        overflow: hidden;
+      }
+
+      .map-tab {
+        flex: 1;
+        background-color: transparent;
+        border: none;
+        padding: 12px;
+        cursor: pointer;
+        font-size: 14px;
+        text-align: center;
+        transition: background-color 0.2s;
+      }
+
+      .map-tab.active {
+        background-color: var(--secondary-color);
+        color: white;
+        font-weight: 600;
+      }
+
+      .map-frame {
+        width: 100%;
+      }
+
+      .icon-grid {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 15px;
+        gap: 10px;
+      }
+
+      .icon-box {
+        flex: 1;
+        min-width: 120px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .icon-frame {
+        width: 40px;
+        height: 40px;
+        background-color: rgba(75, 93, 129, 0.1);
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .icon-frame img {
+        width: 24px;
+        height: 24px;
+      }
+
+      .iconFrame-label {
+        display: block;
+        color: var(--text-light);
+        font-size: 12px;
+        margin-bottom: 2px;
+      }
+
+      .icon-value {
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--primary-color);
+        color: white;
+        text-align: center;
+        padding: 15px 20px;
+        font-size: 14px;
+      }
+
+      .ar-footer {
+        display: none;
+      }
+
+      body[data-lang="ar"] .en-footer, 
+      body[data-lang="ur"] .en-footer {
+        display: none;
+      }
+
+      body[data-lang="ar"] .ar-footer, 
+      body[data-lang="ur"] .ar-footer {
+        display: inline;
+      }
+      
+      /* Responsive Design */
+      @media (max-width: 900px) {
+        .flex-section {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .profile-card {
+          flex-direction: column;
+          text-align: center;
+        }
+        
+        .profile-details {
+          width: 100%;
+        }
+        
+        .icon-grid {
+          gap: 15px;
+        }
+        
+        .icon-box {
+          min-width: 45%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .icon-box {
+          min-width: 100%;
+        }
+      }
+  </style>
   <script defer src="{% static 'js/script.js' %}"></script>
 </head>
+
 <body data-lang="en">
   <header class="main-header">
     <div class="header-logo" id="header-logo">
-      <img src="{% static 'images/logo.png' %}" alt="Logo">
+      <img src="{% static 'logo.png' %}" alt="Logo">
     </div>
     <div class="language-toggle" id="lang-toggle" onclick="toggleLanguageMenu()">
-      <img src="{% static 'images/globe.png' %}" alt="Lang" class="globe-icon">
+      <img src="{% static 'globe.png' %}" alt="Lang" class="globe-icon">
       <span id="lang-label">العربية</span>
     </div>
     <div class="language-menu" id="language-menu">
-      <div onclick="selectLanguage('ar')"><img src="{% static 'images/ksa.png' %}"> العربية</div>
-      <div onclick="selectLanguage('en')"><img src="{% static 'images/us.png' %}"> English</div>
-      <div onclick="selectLanguage('fr')"><img src="{% static 'images/fr.png' %}"> Français</div>
-      <div onclick="selectLanguage('tr')"><img src="{% static 'images/tr.png' %}"> Türkçe</div>
-      <div onclick="selectLanguage('bn')"><img src="{% static 'images/bd.png' %}"> বাংলা</div>
-      <div onclick="selectLanguage('hi')"><img src="{% static 'images/in.png' %}"> हिंदी</div>
-      <div onclick="selectLanguage('id')"><img src="{% static 'images/id.png' %}"> Bahasa Indonesia</div>
-      <div onclick="selectLanguage('fil')"><img src="{% static 'images/ph.png' %}"> Filipino</div>
-      <div onclick="selectLanguage('ur')"><img src="{% static 'images/pk.png' %}"> اردو</div>
+      <div style="color: #273550;" onclick="selectLanguage('en')"><img src="{% static 'us.png' %}"> English</div>
+      <div style="color: #273550;" onclick="selectLanguage('fr')"><img src="{% static 'fr.png' %}"> Français</div>
+      <div style="color: #273550;" onclick="selectLanguage('tr')"><img src="{% static 'tr.png' %}"> Türkçe</div>
+      <div style="color: #273550;" onclick="selectLanguage('bn')"><img src="{% static 'bd.png' %}"> বাংলা</div>
+      <div style="color: #273550;" onclick="selectLanguage('ar')"><img src="{% static 'ksa.png' %}"> العربية</div>
+      <div style="color: #273550;" onclick="selectLanguage('hi')"><img src="{% static 'in.png' %}"> हिंदी</div>
+      <div style="color: #273550;" onclick="selectLanguage('id')"><img src="{% static 'id.png' %}"> Bahasa Indonesia</div>
+      <div style="color: #273550;" onclick="selectLanguage('fil')"><img src="{% static 'ph.png' %}"> Filipino</div>
+      <div style="color: #273550;" onclick="selectLanguage('ur')"><img src="{% static 'pk.png' %}"> اردو</div>
     </div>
   </header>
 
@@ -104,16 +459,6 @@
           <label class="infoRow-label" data-en="Service Provider" data-ar="مقدم الخدمة" data-tr="Hizmet Sağlayıcı" data-fr="Fournisseur de service" data-ur="سروس فراہم کنندہ" data-bn="সেবা প্রদানকারী" data-hi="सेवा प्रदाता" data-id="Penyedia Layanan" data-fil="Tagapagbigay ng Serbisyo"></label>
           <div class="info-value" data-en="شركة مشارق الماسية لخدمات الحجاج" data-ar="شركة مشارق الماسية لخدمات الحجاج" data-tr="شركة مشارق الماسية لخدمات الحجاج" data-fr="شركة مشارق الماسية لخدمات الحجاج" data-ur="شركة مشارق الماسية لخدمات الحجاج"></div>
         </div>
-
-        <div class="info-row">
-          <label class="infoRow-label" data-en="QR Code" data-ar="رمز QR" data-tr="QR Kodu" data-fr="Code QR" data-ur="کیو آر کوڈ" data-bn="কিউআর কোড" data-hi="क्यूआर कोड" data-id="Kode QR" data-fil="QR Code"></label>
-          <div class="info-value">
-            {% if id_card.qr_image %}
-            <img src="{{ id_card.qr_image.url }}" alt="QR Code" style="width: 100px; height: 100px;">
-            {% else %}
-            <span data-en="Not available" data-ar="غير متاح" data-tr="Mevcut değil" data-fr="Non disponible" data-ur="دستیاب نہیں"></span>
-            {% endif %}
-          </div>
         </div>
       </div>
 
@@ -127,50 +472,16 @@
 
         <div id="map-frame-container">
           <div class="map-frame" data-map="makkah" style="display: block;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.584310195011!2d39.8151724!3d21.4062664!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI0JzIyLjYiTiAzOcKwNDknMDMuOSJF!5e0!3m2!1str!2ssa!4v1747248177236!5m2!1str!2ssa" width="100%" height="340" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.584310195011!2d39.8151724!3d21.4062664!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI0JzIyLjYiTiAzOcKwNDknMDMuOSJF!5e0!3m2!1str!2ssa!4v1747248177236!5m2!1str!2ssa" width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
           <div class="map-frame" data-map="madinah" style="display: none;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3631.337744106618!2d39.6051121!3d24.4737519!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDI4JzI1LjUiTiAzOcKwMzYnMjcuNyJF!5e0!3m2!1str!2ssa!4v1747248236459!5m2!1str!2ssa" width="100%" height="340" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3631.337744106618!2d39.6051121!3d24.4737519!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDI4JzI1LjUiTiAzOcKwMzYnMjcuNyJF!5e0!3m2!1str!2ssa!4v1747248236459!5m2!1str!2ssa" width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
           <div class="map-frame" data-map="mina" style="display: none;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.1898048931994!2d39.8911021!3d21.4217833!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI1JzE4LjQiTiAzOcKwNTMnMzcuMiJF!5e0!3m2!1str!2ssa!4v1747248287372!5m2!1str!2ssa" width="100%" height="340" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.1898048931994!2d39.8911021!3d21.4217833!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI1JzE4LjQiTiAzOcKwNTMnMzcuMiJF!5e0!3m2!1str!2ssa!4v1747248287372!5m2!1str!2ssa" width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
           <div class="map-frame" data-map="arafat" style="display: none;">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa" width="100%" height="340" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          </div>
-        </div>
-
-        <div class="icon-grid">
-          <div class="icon-box">
-            <div class="icon-frame"><img src="{% static 'images/camp.png' %}"></div>
-            <div>
-              <label class="iconFrame-label" data-en="Camp Number" data-ar="رقم المخيم" data-tr="Kamp Numarası" data-fr="Numéro de camp" data-ur="کیمپ نمبر" data-bn="ক্যাম্প নম্বর" data-hi="कैम्प नंबर" data-id="Nomor Kamp" data-fil="Bilang ng Kampo"></label>
-              <div class="icon-value" data-en="20880" data-ar="20880" data-tr="20880" data-fr="20880" data-ur="20880"><strong></strong></div>
-            </div>
-          </div>
-
-          <div class="icon-box">
-            <div class="icon-frame"><img src="{% static 'images/street.png' %}"></div>
-            <div>
-              <label class="iconFrame-label" data-en="Street Number" data-ar="رقم الشارع" data-tr="Sokak Numarası" data-fr="Numéro de rue" data-ur="گلی نمبر" data-bn="রাস্তায় নম্বর" data-hi="सड़क संख्या" data-id="Nomor Jalan" data-fil="Bilang ng Kalye"></label>
-              <div class="icon-value" data-en="612" data-ar="612" data-tr="612" data-fr="612" data-ur="612"><strong></strong></div>
-            </div>
-          </div>
-
-          <div class="icon-box">
-            <div class="icon-frame"><img src="{% static 'images/gate.png' %}"></div>
-            <div>
-              <label class="iconFrame-label" data-en="Gate Number" data-ar="رقم البوابة" data-tr="Kapı Numarası" data-fr="Numéro de porte" data-ur="دروازہ نمبر" data-bn="গেট নম্বর" data-hi="गेट नंबर" data-id="Nomor Gerbang" data-fil="Bilang ng Tarangkahan"></label>
-              <div class="icon-value" data-en="10" data-ar="10" data-tr="10" data-fr="10" data-ur="10"><strong></strong></div>
-            </div>
-          </div>
-
-          <div class="icon-box">
-            <div class="icon-frame"><img src="{% static 'images/capacity.png' %}"></div>
-            <div>
-              <label class="iconFrame-label" data-en="Camp Capacity" data-ar="سعة المخيم" data-tr="Kamp Kapasitesi" data-fr="Capacité du camp" data-ur="کیمپ کی گنجائش" data-bn="ক্যাম্পের ধারণক্ষমতা" data-hi="कैम्प क्षमता" data-id="Kapasitas Kamp" data-fil="Kakayahang Tumanggap ng Kampo"></label>
-              <div class="icon-value" data-en="250" data-ar="250" data-tr="250" data-fr="250" data-ur="250"><strong></strong></div>
-            </div>
+            <iframe class="map_iframe" src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa" width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
@@ -190,6 +501,120 @@
       arafat: "https://www.google.com/maps/place/21%C2%B022'36.5%22N+39%C2%B059'04.7%22E/@21.3767959,39.9820569,17z"
     };
   </script>
+
+  <script>
+    // Language Toggle Functionality
+  const languageMenu = document.getElementById('language-menu');
+  let isLanguageMenuOpen = false;
+
+  function toggleLanguageMenu() {
+    if (isLanguageMenuOpen) {
+      languageMenu.style.display = 'none';
+    } else {
+      languageMenu.style.display = 'block';
+    }
+    isLanguageMenuOpen = !isLanguageMenuOpen;
+  }
+
+  // Close language menu when clicking outside
+  document.addEventListener('click', function(event) {
+    const isClickInsideMenu = languageMenu.contains(event.target);
+    const isClickOnToggle = document.getElementById('lang-toggle').contains(event.target);
+    
+    if (!isClickInsideMenu && !isClickOnToggle && isLanguageMenuOpen) {
+      languageMenu.style.display = 'none';
+      isLanguageMenuOpen = false;
+    }
+  });
+
+  // Language Selection
+  // Til tanlash funksiyasini to'g'rilash
+  function selectLanguage(lang) {
+  document.body.setAttribute('data-lang', lang);
+  
+  // Tanlangan tilga qarab til tanlash yorlig'ini o'zgartirish
+  const langNames = {
+    'en': 'English',
+    'ar': 'العربية',
+    'fr': 'Français',
+    'tr': 'Türkçe',
+    'bn': 'বাংলা',
+    'hi': 'हिंदी',
+    'id': 'Bahasa',
+    'fil': 'Filipino',
+    'ur': 'اردو'
+  };
+  
+  // Yorliqni tanlangan tilga o'zgartirish
+  document.getElementById('lang-label').textContent = langNames[lang];
+  
+  // Update text content based on data attributes
+  updateTextContent(lang);
+  
+  // Toggle footer text visibility
+  if (lang === 'ar' || lang === 'ur') {
+    document.querySelector('.ar-footer').style.display = 'inline';
+    document.querySelector('.en-footer').style.display = 'none';
+  } else {
+    document.querySelector('.ar-footer').style.display = 'none';
+    document.querySelector('.en-footer').style.display = 'inline';
+  }
+  
+  // Close the language menu
+  languageMenu.style.display = 'none';
+  isLanguageMenuOpen = false;
+}
+
+  // Update text content for all elements with data-{lang} attributes
+  function updateTextContent(lang) {
+    const elements = document.querySelectorAll(`[data-${lang}]`);
+    
+    elements.forEach(element => {
+      const text = element.getAttribute(`data-${lang}`);
+      if (text) {
+        element.textContent = text;
+      }
+    });
+  }
+
+  // Map Tabs Functionality
+  function showMap(mapType, event) {
+    // Hide all map frames
+    const mapFrames = document.querySelectorAll('.map-frame');
+    mapFrames.forEach(frame => {
+      frame.style.display = 'none';
+    });
+    
+    // Show the selected map frame
+    const selectedFrame = document.querySelector(`.map-frame[data-map="${mapType}"]`);
+    if (selectedFrame) {
+      selectedFrame.style.display = 'block';
+    }
+    
+    // Update active tab
+    if (event) {
+      const tabs = document.querySelectorAll('.map-tab');
+      tabs.forEach(tab => {
+        tab.classList.remove('active');
+      });
+      event.currentTarget.classList.add('active');
+    }
+  }
+
+  // Initialize with English language on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    // Set initial language
+    const initialLang = 'en';
+    document.body.setAttribute('data-lang', initialLang);
+    
+    // Update text content for initial language
+    updateTextContent(initialLang);
+    
+    // Set initial map
+    showMap('makkah');
+  });
+  </script>
+
 
 </body>
 </html>
