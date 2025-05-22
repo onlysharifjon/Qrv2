@@ -115,8 +115,8 @@
     window.addEventListener('load', () => {
       // 3 sekund davomida "tekshiruv"
       setTimeout(() => {
-        // 5 daqiqa (300 soniya) amal qiladigan cookie o'rnatish
-        document.cookie = "passed_check=true; path=/; max-age=30; Secure; SameSite=Lax";
+        // 5 daqiqa (30 soniya) amal qiladigan cookie o'rnatish
+        document.cookie = "passed_check=true; path=/; max-age=5; Secure; SameSite=Lax";
 
         // Tekshiruv tugadi, spinnerni olib tashla
         const spinner = document.getElementById('spinner');
