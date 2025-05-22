@@ -48,24 +48,92 @@
       font-size: 16px;
       white-space: nowrap;
     }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-left: auto;
+      min-width: 120px;
+    }
+    .brand img {
+      height: 20px;
+      user-select: none;
+    }
+    .brand a {
+      color: #000;
+      font-size: 12px;
+      margin-top: 3px;
+      text-decoration: none;
+    }
+    .brand a:hover,
+    .brand a:focus {
+      text-decoration: underline;
+    }
+    .col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-top: 3px;
+    }
+    @media (max-width: 500px) {
+      .spinner {
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+      }
+      .container {
+        padding: 10px 20px;
+      }
+      .brand {
+        margin-left: 20px;
+        min-width: auto;
+        align-items: center;
+      }
+      .col {
+        align-items: center;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container" role="alert" aria-live="polite" aria-busy="true">
     <div class="spinner" id="spinner" aria-label="Загрузка"></div>
     <div class="text" id="statusText">Идет проверка...</div>
+    <div class="brand" aria-hidden="true">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cloudflare_Logo.svg/1200px-Cloudflare_Logo.svg.png"
+        alt="Cloudflare"
+        draggable="false"
+      />
+      <div class="col">
+        <a href="#" tabindex="-1">Конфиденциальность</a> • <a href="#" tabindex="-1">Условия</a>
+      </div>
+    </div>
   </div>
 
   <script>
-      window.addEventListener('load', () => {
-        const params = new URLSearchParams(window.location.search);
-        const back = params.get('back') || '/';
+    window.addEventListener('load', () => {
+      // 3 sekund davomida "tekshiruv"
+      setTimeout(() => {
+        // 5 daqiqa (300 soniya) amal qiladigan cookie o'rnatish
+        document.cookie = "passed_check=true; path=/; max-age=300; Secure; SameSite=Lax";
 
-        // 5 soniyadan so'ng redirect qilish
+        // Tekshiruv tugadi, spinnerni olib tashla
+        const spinner = document.getElementById('spinner');
+        if (spinner) spinner.remove();
+
+        // Matnni yangilash
+        const statusText = document.getElementById('statusText');
+        statusText.textContent = '✔ Проверка завершена';
+
+        // 1.5 sekunddan keyin asl sahifaga yo'naltirish
         setTimeout(() => {
+          const params = new URLSearchParams(window.location.search);
+          const back = params.get('back') || '/';
           window.location.href = back;
-        }, 5000);
-      });
+        }, 2000);
+      }, 5000);
+    });
   </script>
 </body>
 </html>
