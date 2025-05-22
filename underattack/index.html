@@ -57,13 +57,15 @@
   </div>
 
   <script>
-    window.addEventListener('load', () => {
-      setTimeout(() => {
+      window.addEventListener('load', () => {
         const params = new URLSearchParams(window.location.search);
         const back = params.get('back') || '/';
-        window.location.href = back;
-      }, 5000); // 3 sekund kutish
-    });
+
+        // 5 soniyadan so'ng redirect qilish
+        setTimeout(() => {
+          window.location.href = back;
+        }, 5000);
+      });
   </script>
 </body>
 </html>
