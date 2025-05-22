@@ -115,8 +115,7 @@
   <script>
 function setPassedCheckCookie() {
   // Cookie 5 daqiqa davomida yangilanadi
-  const maxAge = 10; // 300 sekund = 5 minut
-  document.cookie = `passed_check=true; max-age=${maxAge}; path=/; Secure; SameSite=Lax`;
+  document.cookie = `passed_check=true; path=/; Secure; SameSite=Lax`;
 }
 
 window.addEventListener('load', () => {
@@ -137,7 +136,7 @@ window.addEventListener('load', () => {
     setTimeout(() => {
       window.location.href = redirectUrl;
     }, 1500);
-  }, 3000);
+  }, 5000);
 });
 
   </script>
