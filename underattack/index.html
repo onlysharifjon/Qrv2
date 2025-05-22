@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Проверка браузера...</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
+    /* Stil shu oldingi kabi */
     body {
       margin: 0;
       padding: 0;
@@ -15,16 +16,19 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-        background: url("/static/hj9.png") no-repeat center /cover;
+      background: url("/static/hj9.png") no-repeat center/cover;
+      background-attachment: fixed;
     }
     .container {
       display: flex;
       align-items: center;
-      background-color: #fff;
+      background-color: rgba(255, 255, 255, 0.9);
       padding: 15px 25px;
       border-radius: 6px;
-      box-shadow: 0 0 10px #00000050;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
       position: relative;
+      max-width: 90vw;
+      flex-wrap: wrap;
     }
     .spinner {
       width: 20px;
@@ -34,85 +38,108 @@
       border-radius: 50%;
       animation: spin 1s linear infinite;
       margin-right: 15px;
+      flex-shrink: 0;
     }
     @keyframes spin {
-      to { transform: rotate(360deg); }
+      to {
+        transform: rotate(360deg);
+      }
     }
     .text {
       font-size: 16px;
+      white-space: nowrap;
     }
     .brand {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
-      margin-left: 50px;
+      margin-left: auto;
+      min-width: 120px;
     }
     .brand img {
       height: 20px;
+      user-select: none;
     }
     .brand a {
       color: #000;
       font-size: 12px;
       margin-top: 3px;
+      text-decoration: none;
     }
-    .brand a:hover {
+    .brand a:hover,
+    .brand a:focus {
       text-decoration: underline;
     }
     .col {
       display: flex;
       flex-direction: column;
-      align-items: end;
+      align-items: flex-end;
+      margin-top: 3px;
     }
-    @media(max-width:500px){
-        .spinner {
-            width: 15px;
-            height: 15px;
-        }
-        .container {
-            padding: 10px 25px;
-        }
+    @media (max-width: 500px) {
+      .spinner {
+        width: 15px;
+        height: 15px;
+        margin-right: 10px;
+      }
+      .container {
+        padding: 10px 20px;
+      }
+      .brand {
+        margin-left: 20px;
+        min-width: auto;
+        align-items: center;
+      }
+      .col {
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="spinner" id="spinner"></div>
+  <div class="container" role="alert" aria-live="polite" aria-busy="true">
+    <div class="spinner" id="spinner" aria-label="Загрузка"></div>
     <div class="text" id="statusText">Идет проверка...</div>
-    <div class="brand">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cloudflare_Logo.svg/1200px-Cloudflare_Logo.svg.png" alt="Cloudflare">
+    <div class="brand" aria-hidden="true">
+      <img
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cloudflare_Logo.svg/1200px-Cloudflare_Logo.svg.png"
+        alt="Cloudflare"
+        draggable="false"
+      />
       <div class="col">
-        <a href="#">Конфиденциальность</a> • <a href="#">Условия</a>
+        <a href="#" tabindex="-1">Конфиденциальность</a> • <a href="#" tabindex="-1">Условия</a>
       </div>
     </div>
   </div>
 
   <script>
-    // ?back=/url/path ni olish
-    function getRedirectUrl() {
-      const params = new URLSearchParams(window.location.search);
-      const back = params.get("back");
-      return back ? back : "/";
-    }
+function setPassedCheckCookie() {
+  // Cookie 5 daqiqa davomida yangilanadi
+  const maxAge = 10; // 300 sekund = 5 minut
+  document.cookie = `passed_check=true; max-age=${maxAge}; path=/; Secure; SameSite=Lax`;
+}
 
-    // Animatsiya va keyingi redirect
+window.addEventListener('load', () => {
+  setPassedCheckCookie();  // Har sahifa yuklanganda cookie yangilanadi
+
+  setTimeout(() => {
+    const spinner = document.getElementById('spinner');
+    const statusText = document.getElementById('statusText');
+
+    if (spinner) spinner.remove();
+
+    statusText.textContent = '✔ Проверка завершена';
+
+    const params = new URLSearchParams(window.location.search);
+    const back = params.get('back');
+    const redirectUrl = back ? back : '/';
+
     setTimeout(() => {
-      const spinner = document.getElementById('spinner');
-      const statusText = document.getElementById('statusText');
+      window.location.href = redirectUrl;
+    }, 1500);
+  }, 3000);
+});
 
-      if (spinner) {
-        spinner.remove();
-      }
-
-      statusText.textContent = '✔ Проверка завершена';
-
-      // Cookie: 5 daqiqa davomida tekshiruvdan o‘tgan deb hisoblaymiz
-      document.cookie = "passed_check=true; max-age=300; path=/; Secure; SameSite=Lax";
-
-      // 1.5 sekunddan keyin redirect
-      setTimeout(() => {
-        window.location.href = getRedirectUrl();
-      }, 1500);
-    }, 3000);
   </script>
 </body>
 </html>
