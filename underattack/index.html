@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Проверка браузера...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #1a1a1a;
+      color: #e0e0e0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      display: flex;
+      align-items: center;
+      background-color: #2a2a2a;
+      padding: 15px 25px;
+      border-radius: 6px;
+      box-shadow: 0 0 10px #00000050;
+      position: relative;
+    }
+    .spinner {
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(0, 255, 0, 0.2);
+      border-top: 3px solid #00ff00;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 15px;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .text {
+      font-size: 16px;
+    }
+    .brand {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-left: 50px;
+    }
+    .brand img {
+      height: 20px;
+    }
+    .brand a {
+      color: #999;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+    .brand a:hover {
+      text-decoration: underline;
+    }
+    .col {
+      display: flex;
+      flex-direction: column;
+      align-items: end;
+    }
+    @media(max-width:500px){
+        .spinner {
+            width: 15px;
+            height: 15px;
+        }
+        .container {
+            padding: 10px 25px;
+        }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="spinner" id="spinner"></div>
+    <div class="text" id="statusText">Идет проверка...</div>
+    <div class="brand">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cloudflare_Logo.svg/1200px-Cloudflare_Logo.svg.png" alt="Cloudflare">
+      <div class="col">
+        <a href="#">Конфиденциальность</a> • <a href="#">Условия</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ?back=/url/path ni olish
+    function getRedirectUrl() {
+      const params = new URLSearchParams(window.location.search);
+      const back = params.get("back");
+      return back ? back : "/";
+    }
+
+    // Animatsiya va keyingi redirect
+    setTimeout(() => {
+      const spinner = document.getElementById('spinner');
+      const statusText = document.getElementById('statusText');
+
+      if (spinner) {
+        spinner.remove();
+      }
+
+      statusText.textContent = '✔ Проверка завершена';
+
+      // Cookie: 5 daqiqa davomida tekshiruvdan o‘tgan deb hisoblaymiz
+      document.cookie = "passed_check=true; max-age=300; path=/; Secure; SameSite=Lax";
+
+      // 1.5 sekunddan keyin redirect
+      setTimeout(() => {
+        window.location.href = getRedirectUrl();
+      }, 1500);
+    }, 3000);
+  </script>
+</body>
+</html>
