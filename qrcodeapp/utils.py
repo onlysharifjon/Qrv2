@@ -87,8 +87,8 @@ def create_id_card(template_pdf_path, output_pdf_path, user_data, default_image_
         country_x = 260
         country_y = 125
         
-        phone_x = 230
-        phone_y = 92
+        blood_type_x = 230
+        blood_type_y = 92
         
         # Rasmi joylashtirish qismi
         user_image_x = 140  # Pastki chap qism
@@ -255,10 +255,10 @@ def create_id_card(template_pdf_path, output_pdf_path, user_data, default_image_
             can.drawString(country_x, country_y, str(user_data["country"]))
             print(f"Country joylashtirildi: {user_data['country']}")
         
-        if "phone" in user_data:
+        if "blood_type" in user_data:
             
-            can.drawString(phone_x, phone_y, str(user_data["phone"]))
-            print(f"Phone joylashtirildi: {user_data['phone']}")
+            can.drawString(blood_type_x, blood_type_y, str(user_data["blood_type"]))
+            print(f"Blood type joylashtirildi: {user_data['blood_type']}")
         
         can.save()
         print("Canvas saqlandi")
