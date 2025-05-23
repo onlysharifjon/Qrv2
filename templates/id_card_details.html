@@ -222,12 +222,130 @@
             padding: 25px;
           }
 
-          .map-card {
-            flex: 1.35;
-            background-color: white;
-            border-radius: 16px;
-            padding: 25px;
-          }
+          {#.map-card {#}
+          {#  flex: 1.35;#}
+          {#  background-color: white;#}
+          {#  border-radius: 16px;#}
+          {#  padding: 25px;#}
+          /* Asosiy container uchun */
+.container {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  flex-wrap: wrap;
+}
+
+/* Kartalar uchun umumiy stillar */
+.info-card, .map-card {
+  background-color: white;
+  border-radius: var(--border-radius, 8px);
+  box-shadow: var(--box-shadow, 0 2px 8px rgba(0, 0, 0, 0.1));
+  flex: 1;
+  overflow: hidden;
+  min-width: 300px; /* Minimum kenglik */
+}
+
+/* Desktop versiya (768px dan yuqori) */
+@media (min-width: 768px) {
+  .container {
+    flex-direction: row;
+  }
+
+  .info-card, .map-card {
+    flex: 1;
+    max-width: calc(50% - 8px);
+  }
+}
+
+/* Tablet versiya (768px dan past) */
+@media (max-width: 767px) {
+  .container {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .info-card, .map-card {
+    flex: none;
+    width: 100%;
+    min-width: unset;
+  }
+
+  /* Arafat kartasini pastga joylash */
+  .map-card {
+    order: 2;
+  }
+
+  .info-card {
+    order: 1;
+  }
+}
+
+/* Mobile versiya (480px dan past) */
+@media (max-width: 480px) {
+  .container {
+    padding: 8px;
+    gap: 8px;
+  }
+
+  .info-card, .map-card {
+    border-radius: var(--border-radius, 6px);
+    margin-bottom: 8px;
+  }
+
+  /* Kichik ekranlar uchun qo'shimcha sozlamalar */
+  .info-card {
+    padding: 12px;
+  }
+
+  .map-card {
+    height: 300px; /* Xarita uchun maksimal balandlik */
+  }
+}
+
+/* Flexbox yordamida tartiblash */
+.cards-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .cards-wrapper {
+    flex-direction: row;
+  }
+}
+
+/* Grid yordamida muqobil yechim */
+.grid-container {
+  display: grid;
+  gap: 16px;
+  padding: 16px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 767px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  /* Arafat xaritasini ikkinchi o'ringa qo'yish */
+  .map-card {
+    grid-row: 2;
+  }
+
+  .info-card {
+    grid-row: 1;
+  }
+}
 
           /* INFO SECTION */
           .info-title {
