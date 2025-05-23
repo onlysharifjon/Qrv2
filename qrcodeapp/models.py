@@ -24,7 +24,7 @@ class IDCard(models.Model):
     birthday = models.CharField(max_length=20)
     id_pass = models.CharField(max_length=20)
     country = models.CharField(max_length=100)
-    phone = models.CharField(max_length=20)
+    blood_type = models.CharField(max_length=20)
     id_badge = models.CharField(max_length=20)
     user_image = models.ImageField(upload_to=generate_user_image_path, null=True, blank=True)
     qr_image = models.ImageField(upload_to=generate_qr_image_path, null=True, blank=True)

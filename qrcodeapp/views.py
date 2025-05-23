@@ -65,7 +65,7 @@ class IDCardCreateAPIView(APIView):
                 description='Mamlakat'
             ),
             openapi.Parameter(
-                'phone', 
+                'blood_type',
                 openapi.IN_FORM,
                 type=openapi.TYPE_STRING, 
                 required=True,
@@ -111,7 +111,7 @@ class IDCardCreateAPIView(APIView):
                     'birthday': instance.birthday,
                     'id_pass': instance.id_pass,
                     'country': instance.country,
-                    'phone': instance.phone,
+                    'blood_type': instance.blood_type,
                     'id_badge': instance.id_badge,
                 }
                 
@@ -332,11 +332,11 @@ class IDCardQR(APIView):
                 description = 'Mamlakat'
             ),
             openapi.Parameter(
-                'phone',
+                'blood_type',
                 openapi.IN_FORM,
                 type = openapi.TYPE_STRING,
                 required = True,
-                description = 'Telefon'
+                description = 'blood_type'
             ),
             openapi.Parameter(
                 'id_badge',
