@@ -281,48 +281,61 @@
             gap: 10px;
         }
          */
-          /* ICON GRID */
-       .icon-grid {
-           display: flex;
-           flex-wrap: wrap;
-           justify-content: space-between;
-           gap: 24px;
-       }
+         /* ICON GRID */
+          .icon-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 24px;
+          }
 
-        .icon-box {
+          @media (max-width: 768px) {
+            .icon-grid {
+              flex-direction: column;
+            }
+          }
+
+          .icon-box {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 140px;
             flex: 1;
-            min-width: 120px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+          }
 
-        .icon-frame {
-            width: 40px;
-            height: 40px;
-            background-color: rgba(75, 93, 129, 0.1);
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+          .icon-frame {
+            background-color: #f5f5f5;
+            padding: 8px;
+            border-radius: 8px;
+          }
 
-        .icon-frame img {
-            width: 24px;
-            height: 24px;
-        }
+          .icon-box img {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+          }
 
-        .iconFrame-label {
+          .icon-box label {
+            font-size: 16px;
+            color: #6f6f6f;
+            font-weight: 500;
+          }
+
+          .icon-box strong {
+            font-size: 22px;
+            color: #000;
+            font-weight: 900;
+            margin-top: 4px;
             display: block;
-            color: var(--text-light);
-            font-size: 12px;
-            margin-bottom: 2px;
-        }
+          }
 
-        .icon-value {
-            font-size: 14px;
-            font-weight: 600;
-        }
+          .icon-value {
+            font-size: 16px;
+            color: #000;
+            font-weight: 680;
+            margin-top: 4px;
+            display: block;
+          }
 
         /* Footer */
         footer {
