@@ -19,8 +19,8 @@ def generate_qr_image_path(instance, filename):
 class IDCard(models.Model):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     first_name = models.CharField(max_length=100)
-    last_name = models.CharField(max_length=100)
-    surname = models.CharField(max_length=100)
+    gender = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100,null=True)
     birthday = models.CharField(max_length=20)
     id_pass = models.CharField(max_length=20)
     country = models.CharField(max_length=100)
