@@ -270,6 +270,14 @@
             border-bottom: 2px solid #ddd;
             justify-content: flex-start;
           }
+          .map-arafat {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            justify-content: flex-start;
+          }
 
           .map-tabs button {
             background: none;
@@ -882,11 +890,14 @@
             <button class="map-tab" data-map="mina" data-en="Mina" data-ar="منى" data-tr="Mina" data-fr="Mina"
                     data-ur="منیٰ" data-bn="মিনা" data-hi="मिना" data-id="Mina" data-fil="Mina"
                     onclick="showMap('mina', event)"></button>
-            <button class="map-tab" data-map="arafat" data-en="Arafat" data-ar="عرفات" data-tr="Arafat" data-fr="Arafat"
+
+        </div>
+        <div class="map-tabs">
+            <button class="map-tabs" data-map="arafat" data-en="Arafat" data-ar="عرفات" data-tr="Arafat" data-fr="Arafat"
                     data-ur="عرفات" data-bn="আরাফাত" data-hi="अराफात" data-id="Arafah" data-fil="Arafat"
                     onclick="showMap('arafat', event)"></button>
-        </div>
 
+        </div>
         <div id="map-frame-container">
             <div class="map-frame" data-map="makkah" style="display: block;">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.584310195011!2d39.8151724!3d21.4062664!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI0JzIyLjYiTiAzOcKwNDknMDMuOSJF!5e0!3m2!1str!2ssa!4v1747248177236!5m2!1str!2ssa"
@@ -904,79 +915,11 @@
                         loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div class="map-frame" data-map="arafat" style="display: none;">
-    <style>
-        .map-frame {
-            width: 100%;
-            padding: 16px;
-            box-sizing: border-box;
-        }
-
-        .map_iframe {
-            width: 100%;
-            height: 390px;
-            border: 0;
-            border-radius: 12px;
-        }
-
-        /* Desktop (768px+) - normal */
-        @media (min-width: 768px) {
-            .map-frame {
-                order: 0;
-                padding: 16px;
-            }
-
-            .map_iframe {
-                height: 390px;
-            }
-        }
-
-        /* Tablet (768px dan past) - pastga tushadi */
-        @media (max-width: 767px) {
-            .map-frame {
-                order: 2 !important;
-                width: 100% !important;
-                padding: 12px;
-            }
-
-            .map_iframe {
-                height: 350px;
-                border-radius: 10px;
-            }
-        }
-
-        /* Mobile (480px dan past) */
-        @media (max-width: 480px) {
-            .map-frame {
-                padding: 8px;
-                margin-top: 8px;
-            }
-
-            .map_iframe {
-                height: 300px;
-                border-radius: 8px;
-            }
-        }
-
-        /* Extra small (360px dan past) */
-        @media (max-width: 360px) {
-            .map_iframe {
-                height: 250px;
-                border-radius: 6px;
-            }
-        }
-    </style>
-
-    <iframe class="map_iframe"
-            src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa"
-            width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""
-            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
-{#            <div class="map-frame" data-map="arafat" style="display: none;">#}
-{#                <iframe class="map_iframe"#}
-{#                        src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa"#}
-{#                        width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""#}
-{#                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>#}
-{#            </div>#}
+                <iframe class="map_iframe"
+                        src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa"
+                        width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
             <div class="icon-grid">
           <div class="icon-box">
             <div class="icon-frame"><img src="/static/camp.png"></div>
