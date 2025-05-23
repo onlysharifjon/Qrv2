@@ -762,6 +762,31 @@
                              data-tr="{{ id_card.first_name }}" data-fr="{{ id_card.first_name }}"
                              data-ur="{{ id_card.first_name }}"></div>
                     </div>
+
+                    <div class="detail-pair">
+                        <label class="detailPair-label" data-en="Passport Number" data-ar="جواز سفر" data-tr="Pasaport Numarası"
+                         data-fr="Numéro de passeport" data-ur="پاسپورٹ نمبر" data-bn="পাসপোর্ট নম্বর" data-hi="पासपोर्ट नंबर"
+                         data-id="Nomor Paspor" data-fil="Numero ng Pasaporte"></label>
+                        <div class="profile-value" data-en="{{ id_card.id_pass }}" data-ar="{{ id_card.id_pass }}"
+                     data-tr="{{ id_card.id_pass }}" data-fr="{{ id_card.id_pass }}" data-ur="{{ id_card.id_pass }}"></div>
+                    </div>
+                     <div class="detail-pair">
+                        <label class="detailPair-label" data-en="Nationality" data-ar="الجنسية" data-tr="Uyruk"
+                               data-fr="Nationalité" data-ur="قومیت" data-bn="জাতীয়তা" data-hi="राष्ट्रीयता"
+                               data-id="Kebangsaan" data-fil="Nasyonalidad"></label>
+                        <div class="profile-value" data-en="{{ id_card.country }}" data-ar="{{ id_card.country }}"
+                             data-tr="{{ id_card.country }}" data-fr="{{ id_card.country }}"
+                             data-ur="{{ id_card.country }}"></div>
+                    </div>
+                    <div class="detail-pair">
+                        <label class="detailPair-label" data-en="Date of Birth" data-ar="تاريخ الميلاد"
+                               data-tr="Doğum Tarihi" data-fr="Date de naissance" data-ur="تاریخ پیدائش"
+                               data-bn="জন্ম তারিখ" data-hi="जन्म तिथि" data-id="Tanggal Lahir"
+                               data-fil="Araw ng Kapanganakan"></label>
+                        <div class="profile-value" data-en="{{ id_card.birthday }}" data-ar="{{ id_card.birthday }}"
+                             data-tr="{{ id_card.birthday }}" data-fr="{{ id_card.birthday }}"
+                             data-ur="{{ id_card.birthday }}"></div>
+                    </div>
                     <div class="detail-pair">
                         <label class="detailPair-label"
                                data-en="Gender"
@@ -779,30 +804,6 @@
                         </div>
                     </div>
                 </div>
-                <div class="detail-column">
-                    <div class="detail-pair">
-                        <label class="detailPair-label" data-en="Nationality" data-ar="الجنسية" data-tr="Uyruk"
-                               data-fr="Nationalité" data-ur="قومیت" data-bn="জাতীয়তা" data-hi="राष्ट्रीयता"
-                               data-id="Kebangsaan" data-fil="Nasyonalidad"></label>
-                        <div class="profile-value" data-en="{{ id_card.country }}" data-ar="{{ id_card.country }}"
-                             data-tr="{{ id_card.country }}" data-fr="{{ id_card.country }}"
-                             data-ur="{{ id_card.country }}"></div>
-                    </div>
-                    <div class="detail-pair">
-                        <label class="detailPair-label" data-en="Date of Birth" data-ar="تاريخ الميلاد"
-                               data-tr="Doğum Tarihi" data-fr="Date de naissance" data-ur="تاریخ پیدائش"
-                               data-bn="জন্ম তারিখ" data-hi="जन्म तिथि" data-id="Tanggal Lahir"
-                               data-fil="Araw ng Kapanganakan"></label>
-                        <div class="profile-value" data-en="{{ id_card.birthday }}" data-ar="{{ id_card.birthday }}"
-                             data-tr="{{ id_card.birthday }}" data-fr="{{ id_card.birthday }}"
-                             data-ur="{{ id_card.birthday }}"></div>
-                    </div>
-                </div>
-                {#                <div class="detail-column">#}
-                {#                  <div class="detail-pair">#}
-                {#                    <label class="detailPair-label" data-en="Surname" data-ar="اللقب" data-tr="Sülale" data-fr="Surnom" data-ur="تخلص" data-bn="উপাধি" data-hi="उपनाम" data-id="Nama Keluarga" data-fil="Apelyido ng Pamilya"></label>#}
-                {#                    <div class="profile-value" data-en="{{ id_card.surname }}" data-ar="{{ id_card.surname }}" data-tr="{{ id_card.surname }}" data-fr="{{ id_card.surname }}" data-ur="{{ id_card.surname }}"></div>#}
-                {#                  </div>#}
                 <div class="detail-pair">
                     <label class="detailPair-label" data-en="Blood Type" data-ar="فصيلة الدم" data-tr="Kan Grubu" data-fr="Groupe sanguin" data-ur="بلڈ گروپ"
            data-bn="রক্তের ধরন" data-hi="रक्त प्रकार" data-id="Golongan Darah" data-fil="Uri ng Dugo"> </label>
@@ -839,13 +840,7 @@
                  data-ur="{{ id_card.id_badge }}"></div>
         </div>
 
-        <div class="info-row">
-            <label class="infoRow-label" data-en="Passport Number" data-ar="جواز سفر" data-tr="Pasaport Numarası"
-                   data-fr="Numéro de passeport" data-ur="پاسپورٹ نمبر" data-bn="পাসপোর্ট নম্বর" data-hi="पासपोर्ट नंबर"
-                   data-id="Nomor Paspor" data-fil="Numero ng Pasaporte"></label>
-            <div class="info-value" data-en="{{ id_card.id_pass }}" data-ar="{{ id_card.id_pass }}"
-                 data-tr="{{ id_card.id_pass }}" data-fr="{{ id_card.id_pass }}" data-ur="{{ id_card.id_pass }}"></div>
-        </div>
+
 
         <div class="info-row">
             <label class="infoRow-label" data-en="The Authority" data-ar="الجهة" data-tr="Yetkili Kurum"
@@ -862,6 +857,16 @@
             <div class="info-value" data-en="شركة مشارق الماسية لخدمات الحجاج"
                  data-ar="شركة مشارق الماسية لخدمات الحجاج" data-tr="شركة مشارق الماسية لخدمات الحجاج"
                  data-fr="شركة مشارق الماسية لخدمات الحجاج" data-ur="شركة مشارق الماسية لخدمات الحجاج"></div>
+        </div>
+
+        <div class="info-row">
+          <label class="infoRow-label" data-en="Company ID" data-ar="رقم الشركة" data-tr="Şirket ID" data-fr="ID de la société" data-ur="کمپنی کا آئی ڈی" data-bn="কোম্পানি আইডি" data-hi="कंपनी आईडी" data-id="ID Perusahaan" data-fil="Company ID" style="font-size: 15px; font-weight: 500; color: rgb(111, 111, 111);">Company ID</label>
+          <div class="info-value" data-en="966555513161" data-ar="966555513161" data-tr="966555513161" data-fr="966555513161" data-ur="966555513161" style="font-size: 15px; font-weight: 700; color: rgb(0, 0, 0); text-align: center;">966555513161</div>
+        </div>
+
+        <div class="info-row">
+          <label class="infoRow-label" data-en="Service group in Makkah" data-ar="مجموعة الخدمة في مكة" data-tr="Mekke Hizmet Grubu" data-fr="Groupe de service à la Mecque" data-ur="مکہ میں خدمت گروپ" data-bn="মক্কায় সেবা দল" data-hi="मक्का में सेवा समूह" data-id="Grup Layanan di Mekkah" data-fil="Grupo ng Serbisyo sa Makkah" style="font-size: 15px; font-weight: 500; color: rgb(111, 111, 111);">Service group in Makkah</label>
+          <div class="info-value" data-en="--" data-ar="--" data-tr="--" data-fr="--" data-ur="--" style="font-size: 15px; font-weight: 700; color: rgb(0, 0, 0); text-align: center;">--</div>
         </div>
     </div>
     </div>
