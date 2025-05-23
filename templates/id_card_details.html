@@ -270,14 +270,6 @@
             border-bottom: 2px solid #ddd;
             justify-content: flex-start;
           }
-          .map-arafat {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #ddd;
-            justify-content: flex-start;
-          }
 
           .map-tabs button {
             background: none;
@@ -881,21 +873,12 @@
 
     <div class="map-card">
         <div class="map-tabs">
-            <button class="map-tab active" data-map="makkah" data-en="Makkah" data-ar="مكة" data-tr="Mekke"
-                    data-fr="La Mecque" data-ur="مکہ" data-bn="মক্কা" data-hi="मक्का" data-id="Mekkah" data-fil="Makkah"
-                    onclick="showMap('makkah', event)"></button>
-            <button class="map-tab" data-map="madinah" data-en="Madinah" data-ar="المدينة" data-tr="Medine"
-                    data-fr="Médine" data-ur="مدینہ" data-bn="মদিনা" data-hi="मदीना" data-id="Madinah"
-                    data-fil="Madinah" onclick="showMap('madinah', event)"></button>
-            <button class="map-tab" data-map="mina" data-en="Mina" data-ar="منى" data-tr="Mina" data-fr="Mina"
-                    data-ur="منیٰ" data-bn="মিনা" data-hi="मिना" data-id="Mina" data-fil="Mina"
-                    onclick="showMap('mina', event)"></button>
-
+          <button class="map-tab" data-map="makkah" data-en="Makkah" data-ar="مكة" data-tr="Mekke" data-fr="La Mecque" data-ur="مکہ" data-bn="মক্কা" data-hi="मक्का" data-id="Mekkah" data-fil="Makkah" onclick="showMap('makkah', event)">Makkah</button>
+          <button class="map-tab" data-map="madinah" data-en="Madinah" data-ar="المدينة" data-tr="Medine" data-fr="Médine" data-ur="مدینہ" data-bn="মদিনা" data-hi="मदीना" data-id="Madinah" data-fil="Madinah" onclick="showMap('madinah', event)">Madinah</button>
+          <button class="map-tab active" data-map="mina" data-en="Mina" data-ar="منى" data-tr="Mina" data-fr="Mina" data-ur="منیٰ" data-bn="মিনা" data-hi="मिना" data-id="Mina" data-fil="Mina" onclick="showMap('mina', event)">Mina</button>
         </div>
         <div class="map-tabs">
-            <button class="map-tabs" data-map="arafat" data-en="Arafat" data-ar="عرفات" data-tr="Arafat" data-fr="Arafat"
-                    data-ur="عرفات" data-bn="আরাফাত" data-hi="अराफात" data-id="Arafah" data-fil="Arafat"
-                    onclick="showMap('arafat', event)"></button>
+            <button class="map-tab" data-map="arafat" data-en="Arafat" data-ar="عرفات" data-tr="Arafat" data-fr="Arafat" data-ur="عرفات" data-bn="আরাফাত" data-hi="अराफात" data-id="Arafah" data-fil="Arafat" onclick="showMap('arafat', event)">Arafat</button>
 
         </div>
         <div id="map-frame-container">
