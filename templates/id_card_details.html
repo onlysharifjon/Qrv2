@@ -871,140 +871,21 @@
     </div>
     </div>
 
-    <div class="map-card" style="
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    flex: 1;
-    overflow: hidden;
-    min-width: 300px;
-    min-height: 400px;
-">
-    <style>
-        .map-tabs {
-            display: flex;
-            background-color: #f8fafc;
-            border-bottom: 2px solid #e5e7eb;
-            padding: 0;
-            margin: 0;
-            overflow-x: auto;
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-
-        .map-tabs::-webkit-scrollbar {
-            display: none;
-        }
-
-        .map-tab {
-            flex: 1;
-            min-width: 80px;
-            padding: 12px 16px;
-            border: none;
-            background-color: transparent;
-            color: #374151;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border-bottom: 3px solid transparent;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .map-tab:hover {
-            background-color: #e2e8f0;
-            color: #2563eb;
-        }
-
-        .map-tab.active {
-            background-color: white;
-            color: #1e40af;
-            border-bottom-color: #2563eb;
-            font-weight: 600;
-        }
-
-        .map-tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            right: 0;
-            height: 2px;
-            background-color: #2563eb;
-        }
-
-        /* Desktop version (768px+) */
-        @media (min-width: 768px) {
-            .map-tabs {
-                overflow-x: visible;
-            }
-
-            .map-tab {
-                min-width: auto;
-                flex: 1;
-            }
-        }
-
-        /* Tablet version (768px dan past) */
-        @media (max-width: 767px) {
-            .map-card {
-                order: 2 !important;
-                width: 100% !important;
-                min-width: unset !important;
-            }
-
-            .map-tabs {
-                padding: 0 4px;
-            }
-
-            .map-tab {
-                font-size: 13px;
-                padding: 10px 12px;
-                min-width: 70px;
-            }
-        }
-
-        /* Mobile version (480px dan past) */
-        @media (max-width: 480px) {
-            .map-card {
-                border-radius: 6px !important;
-                margin-bottom: 8px !important;
-                min-height: 350px !important;
-            }
-
-            .map-tab {
-                font-size: 12px;
-                padding: 8px 10px;
-                min-width: 60px;
-            }
-        }
-
-        /* Extra small screens */
-        @media (max-width: 360px) {
-            .map-tab {
-                font-size: 11px;
-                padding: 6px 8px;
-                min-width: 55px;
-            }
-        }
-    </style>
-
-    <div class="map-tabs">
-        <button class="map-tab active" data-map="makkah" data-en="Makkah" data-ar="مكة" data-tr="Mekke"
-                data-fr="La Mecque" data-ur="مکہ" data-bn="মক্কা" data-hi="मक्का" data-id="Mekkah" data-fil="Makkah"
-                onclick="showMap('makkah', event)">Makkah</button>
-        <button class="map-tab" data-map="madinah" data-en="Madinah" data-ar="المدينة" data-tr="Medine"
-                data-fr="Médine" data-ur="مদীনা" data-bn="মদিনা" data-hi="मदीना" data-id="Madinah"
-                data-fil="Madinah" onclick="showMap('madinah', event)">Madinah</button>
-        <button class="map-tab" data-map="mina" data-en="Mina" data-ar="منى" data-tr="Mina" data-fr="Mina"
-                data-ur="منیٰ" data-bn="মিনা" data-hi="मिना" data-id="Mina" data-fil="Mina"
-                onclick="showMap('mina', event)">Mina</button>
-        <button class="map-tab" data-map="arafat" data-en="Arafat" data-ar="عرفات" data-tr="Arafat" data-fr="Arafat"
-                data-ur="عرفات" data-bn="আরাফাত" data-hi="अराफात" data-id="Arafah" data-fil="Arafat"
-                onclick="showMap('arafat', event)">Arafat</button>
-    </div>
-</div>
+    <div class="map-card">
+        <div class="map-tabs">
+            <button class="map-tab active" data-map="makkah" data-en="Makkah" data-ar="مكة" data-tr="Mekke"
+                    data-fr="La Mecque" data-ur="مکہ" data-bn="মক্কা" data-hi="मक्का" data-id="Mekkah" data-fil="Makkah"
+                    onclick="showMap('makkah', event)"></button>
+            <button class="map-tab" data-map="madinah" data-en="Madinah" data-ar="المدينة" data-tr="Medine"
+                    data-fr="Médine" data-ur="مدینہ" data-bn="মদিনা" data-hi="मदीना" data-id="Madinah"
+                    data-fil="Madinah" onclick="showMap('madinah', event)"></button>
+            <button class="map-tab" data-map="mina" data-en="Mina" data-ar="منى" data-tr="Mina" data-fr="Mina"
+                    data-ur="منیٰ" data-bn="মিনা" data-hi="मिना" data-id="Mina" data-fil="Mina"
+                    onclick="showMap('mina', event)"></button>
+            <button class="map-tab" data-map="arafat" data-en="Arafat" data-ar="عرفات" data-tr="Arafat" data-fr="Arafat"
+                    data-ur="عرفات" data-bn="আরাফাত" data-hi="अराफात" data-id="Arafah" data-fil="Arafat"
+                    onclick="showMap('arafat', event)"></button>
+        </div>
 
         <div id="map-frame-container">
             <div class="map-frame" data-map="makkah" style="display: block;">
@@ -1023,11 +904,79 @@
                         loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             <div class="map-frame" data-map="arafat" style="display: none;">
-                <iframe class="map_iframe"
-                        src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa"
-                        width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""
-                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-            </div>
+    <style>
+        .map-frame {
+            width: 100%;
+            padding: 16px;
+            box-sizing: border-box;
+        }
+
+        .map_iframe {
+            width: 100%;
+            height: 390px;
+            border: 0;
+            border-radius: 12px;
+        }
+
+        /* Desktop (768px+) - normal */
+        @media (min-width: 768px) {
+            .map-frame {
+                order: 0;
+                padding: 16px;
+            }
+
+            .map_iframe {
+                height: 390px;
+            }
+        }
+
+        /* Tablet (768px dan past) - pastga tushadi */
+        @media (max-width: 767px) {
+            .map-frame {
+                order: 2 !important;
+                width: 100% !important;
+                padding: 12px;
+            }
+
+            .map_iframe {
+                height: 350px;
+                border-radius: 10px;
+            }
+        }
+
+        /* Mobile (480px dan past) */
+        @media (max-width: 480px) {
+            .map-frame {
+                padding: 8px;
+                margin-top: 8px;
+            }
+
+            .map_iframe {
+                height: 300px;
+                border-radius: 8px;
+            }
+        }
+
+        /* Extra small (360px dan past) */
+        @media (max-width: 360px) {
+            .map_iframe {
+                height: 250px;
+                border-radius: 6px;
+            }
+        }
+    </style>
+
+    <iframe class="map_iframe"
+            src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa"
+            width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""
+            loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</div>
+{#            <div class="map-frame" data-map="arafat" style="display: none;">#}
+{#                <iframe class="map_iframe"#}
+{#                        src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa"#}
+{#                        width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""#}
+{#                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>#}
+{#            </div>#}
             <div class="icon-grid">
           <div class="icon-box">
             <div class="icon-frame"><img src="/static/camp.png"></div>
