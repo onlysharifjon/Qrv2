@@ -16,6 +16,7 @@
             rel="stylesheet"
     />
     <style>
+
         /* Main Styles */
         :root {
             --primary-color: #273550;
@@ -35,31 +36,41 @@
         }
 
         body {
-            font-family: "Inter", Arial, sans-serif;
-            background-color: var(--background-color);
-            margin: 0;
-            padding: 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            color: var(--text-color);
+            background: url('/static/hj9.png') no-repeat center 300px;
+            background-size: contain;
+            background-color: #f1f1f1;
+            color: #111;
+            direction: ltr;
+            font-family: 'Inter', sans-serif;
         }
+        @media (max-width: 768px) {
+            body {
+              background-image: url('/static/hj9-2.png');
+              background-position: center 800px; /* Hajj Permit kartının hemen arkasına denk gelmesi için */
+              background-size: contain;
+            }
+          }
 
+        body[data-lang="ar"],
+        body[data-lang="ur"]{
+            direction: rtl;
+            font-family: sans-serif; /* Harita sekmeleri dışında varsayılan kalacak */
+        }
                 /* HEADER */
-          .main-header {
+        .main-header {
             background-color: #0b2c4d;
             padding: 12px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             position: relative;
-          }
+        }
 
-          #header-logo img {
+        #header-logo img {
             height: 58px;
-          }
+        }
 
-          .language-toggle {
+        .language-toggle {
             display: flex;
             align-items: center;
             gap: 6px;
@@ -67,11 +78,11 @@
             cursor: pointer;
             font-size: 16px;
             font-weight: bold;
-          }
+        }
 
-          .globe-icon {
+        .globe-icon {
             height: 18px;
-          }
+        }
 
           /* LANGUAGE MENU */
         .language-menu {
