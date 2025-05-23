@@ -1,906 +1,979 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
+<head>
+    <meta charset="UTF-8"/>
     <title>Проверка браузера...</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="/static/logo2.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="icon" type="image/png" href="/static/logo2.png"/>
 
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap"
+            rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&display=swap"
+            rel="stylesheet"
     />
     <style>
-      /* Main Styles */
+        /* Main Styles */
         :root {
-        --primary-color: #273550;
-        --accent-color: #ab8556;
-        --secondary-color: #4b5d81;
-        --background-color: #f7f7f7;
-        --text-color: #333;
-        --text-light: #666;
-        --border-radius: 12px;
-        --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      body {
-        font-family: "Inter", Arial, sans-serif;
-        background-color: var(--background-color);
-        margin: 0;
-        padding: 0;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        color: var(--text-color);
-      }
-
-      /* Header Styles */
-      .main-header {
-        background-color: var(--primary-color);
-        color: white;
-        padding: 15px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        position: relative;
-      }
-
-      .header-logo img {
-        height: 40px;
-      }
-
-      .language-toggle {
-        display: flex;
-        align-items: center;
-        cursor: pointer;
-        background-color: rgba(255, 255, 255, 0.15);
-        padding: 5px 12px;
-        border-radius: 20px;
-      }
-
-      .globe-icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
-      }
-
-      .language-menu {
-        position: absolute;
-        top: 70px;
-        right: 20px;
-        background-color: white;
-        border-radius: var(--border-radius);
-        box-shadow: var(--box-shadow);
-        z-index: 100;
-        display: none;
-        width: 200px;
-        overflow: hidden;
-      }
-
-      .language-menu div {
-        padding: 12px 20px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        transition: background-color 0.2s;
-      }
-
-      .language-menu div:hover {
-        background-color: var(--background-color);
-      }
-
-      .language-menu img {
-        width: 20px;
-        height: 15px;
-        margin-right: 12px;
-        object-fit: cover;
-      }
-
-      /* RTL Support for Arabic and Urdu */
-      body[data-lang="ar"],
-      body[data-lang="ur"] {
-        direction: rtl;
-      }
-
-      body[data-lang="ar"] .language-toggle,
-      body[data-lang="ur"] .language-toggle {
-        flex-direction: row-reverse;
-      }
-
-      body[data-lang="ar"] .globe-icon,
-      body[data-lang="ur"] .globe-icon {
-        margin-right: 0;
-        margin-left: 8px;
-      }
-
-      body[data-lang="ar"] .language-menu div,
-      body[data-lang="ur"] .language-menu div {
-        flex-direction: row-reverse;
-      }
-
-      body[data-lang="ar"] .language-menu img,
-      body[data-lang="ur"] .language-menu img {
-        margin-right: 0;
-        margin-left: 12px;
-      }
-
-      /* Content Styles */
-      .content-wrapper {
-        flex: 1;
-        padding: 20px;
-        max-width: 1200px;
-        margin: 0 auto;
-        width: 100%;
-      }
-
-      /* Profile Card */
-      .profile-card {
-        background-color: white;
-        border-radius: var(--border-radius);
-        box-shadow: var(--box-shadow);
-        padding: 20px;
-        margin-bottom: 20px;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-
-      .profile-photo-box {
-        flex-shrink: 0;
-      }
-
-      .profile-photo {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        border: 3px solid var(--accent-color);
-        object-fit: cover;
-      }
-
-      .profile-details {
-        flex: 1;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 15px;
-      }
-
-      .detail-column {
-        flex: 1;
-        min-width: 200px;
-      }
-
-      .detail-pair {
-        margin-bottom: 15px;
-      }
-
-      .detailPair-label {
-        display: block;
-        color: var(--text-light);
-        font-size: 14px;
-        margin-bottom: 4px;
-      }
-
-      .profile-value {
-        font-size: 18px;
-        font-weight: 600;
-        text-transform: uppercase;
-      }
-
-      /* Flex Section */
-      .flex-section {
-        display: flex;
-        gap: 20px;
-        margin-bottom: 20px;
-      }
-
-      .info-card,
-      .map-card {
-        background-color: white;
-        border-radius: var(--border-radius);
-        box-shadow: var(--box-shadow);
-        flex: 1;
-        overflow: hidden;
-      }
-
-      .info-card {
-        padding: 20px;
-      }
-
-      .info-title {
-        color: var(--accent-color);
-        font-size: 20px;
-        margin-bottom: 20px;
-        font-weight: bold;
-      }
-
-      .info-row {
-        margin-bottom: 15px;
-        border-bottom: 1px solid #eee;
-        padding-bottom: 12px;
-      }
-
-      .info-row:last-child {
-        border-bottom: none;
-      }
-
-      .infoRow-label {
-        display: block;
-        color: var(--text-light);
-        font-size: 14px;
-        margin-bottom: 4px;
-      }
-
-      .info-value {
-        font-size: 16px;
-        font-weight: 600;
-      }
-
-      /* Map Card */
-      .map-tabs {
-        display: flex;
-        background-color: #f1f1f1;
-        overflow: hidden;
-      }
-
-      .map-tab {
-        flex: 1;
-        background-color: transparent;
-        border: none;
-        padding: 12px;
-        cursor: pointer;
-        font-size: 14px;
-        text-align: center;
-        transition: background-color 0.2s;
-      }
-
-      .map-tab.active {
-        background-color: var(--secondary-color);
-        color: white;
-        font-weight: 600;
-      }
-
-      .map-frame {
-        width: 100%;
-      }
-
-      .icon-grid {
-        display: flex;
-        flex-wrap: wrap;
-        padding: 15px;
-        gap: 10px;
-      }
-
-      .icon-box {
-        flex: 1;
-        min-width: 120px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .icon-frame {
-        width: 40px;
-        height: 40px;
-        background-color: rgba(75, 93, 129, 0.1);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-
-      .icon-frame img {
-        width: 24px;
-        height: 24px;
-      }
-
-      .iconFrame-label {
-        display: block;
-        color: var(--text-light);
-        font-size: 12px;
-        margin-bottom: 2px;
-      }
-
-      .icon-value {
-        font-size: 14px;
-        font-weight: 600;
-      }
-
-      /* Footer */
-      footer {
-        background-color: var(--primary-color);
-        color: white;
-        text-align: center;
-        padding: 15px 20px;
-        font-size: 14px;
-      }
-
-      .ar-footer {
-        display: none;
-      }
-
-      body[data-lang="ar"] .en-footer,
-      body[data-lang="ur"] .en-footer {
-        display: none;
-      }
-
-      body[data-lang="ar"] .ar-footer,
-      body[data-lang="ur"] .ar-footer {
-        display: inline;
-      }
-
-      /* Responsive Design */
-      @media (max-width: 900px) {
-        .flex-section {
-          flex-direction: column;
+            --primary-color: #273550;
+            --accent-color: #ab8556;
+            --secondary-color: #4b5d81;
+            --background-color: #f7f7f7;
+            --text-color: #333;
+            --text-light: #666;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-      }
 
-      @media (max-width: 768px) {
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter", Arial, sans-serif;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            color: var(--text-color);
+        }
+
+        /* Header Styles */
+        .main-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .header-logo img {
+            height: 40px;
+        }
+
+        .language-toggle {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            background-color: rgba(255, 255, 255, 0.15);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .globe-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .language-menu {
+            position: absolute;
+            top: 70px;
+            right: 20px;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            z-index: 100;
+            display: none;
+            width: 200px;
+            overflow: hidden;
+        }
+
+        .language-menu div {
+            padding: 12px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.2s;
+        }
+
+        .language-menu div:hover {
+            background-color: var(--background-color);
+        }
+
+        .language-menu img {
+            width: 20px;
+            height: 15px;
+            margin-right: 12px;
+            object-fit: cover;
+        }
+
+        /* RTL Support for Arabic and Urdu */
+        body[data-lang="ar"],
+        body[data-lang="ur"] {
+            direction: rtl;
+        }
+
+        body[data-lang="ar"] .language-toggle,
+        body[data-lang="ur"] .language-toggle {
+            flex-direction: row-reverse;
+        }
+
+        body[data-lang="ar"] .globe-icon,
+        body[data-lang="ur"] .globe-icon {
+            margin-right: 0;
+            margin-left: 8px;
+        }
+
+        body[data-lang="ar"] .language-menu div,
+        body[data-lang="ur"] .language-menu div {
+            flex-direction: row-reverse;
+        }
+
+        body[data-lang="ar"] .language-menu img,
+        body[data-lang="ur"] .language-menu img {
+            margin-right: 0;
+            margin-left: 12px;
+        }
+
+        /* Content Styles */
+        .content-wrapper {
+            flex: 1;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* Profile Card */
         .profile-card {
-          flex-direction: column;
-          text-align: center;
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-photo-box {
+            flex-shrink: 0;
+        }
+
+        .profile-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            border: 3px solid var(--accent-color);
+            object-fit: cover;
         }
 
         .profile-details {
-          width: 100%;
+            flex: 1;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .detail-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .detail-pair {
+            margin-bottom: 15px;
+        }
+
+        .detailPair-label {
+            display: block;
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .profile-value {
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        /* Flex Section */
+        .flex-section {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .info-card,
+        .map-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .info-card {
+            padding: 20px;
+        }
+
+        .info-title {
+            color: var(--accent-color);
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .info-row {
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 12px;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .infoRow-label {
+            display: block;
+            color: var(--text-light);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* Map Card */
+        .map-tabs {
+            display: flex;
+            background-color: #f1f1f1;
+            overflow: hidden;
+        }
+
+        .map-tab {
+            flex: 1;
+            background-color: transparent;
+            border: none;
+            padding: 12px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: center;
+            transition: background-color 0.2s;
+        }
+
+        .map-tab.active {
+            background-color: var(--secondary-color);
+            color: white;
+            font-weight: 600;
+        }
+
+        .map-frame {
+            width: 100%;
         }
 
         .icon-grid {
-          gap: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            padding: 15px;
+            gap: 10px;
         }
 
         .icon-box {
-          min-width: 45%;
+            flex: 1;
+            min-width: 120px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-      }
 
-      @media (max-width: 480px) {
-        .icon-box {
-          min-width: 100%;
+        .icon-frame {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(75, 93, 129, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
-      }
 
-      /* Loading Animation Styles */
-      .loading-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100vh;
-        background: url("https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&h=1080&fit=crop&crop=center") no-repeat center/cover;
-        background-attachment: fixed;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 9999;
-        padding: 10px;
-      }
-
-      .container {
-        display: flex;
-        align-items: center;
-        background-color: rgba(255, 255, 255, 0.95);
-        padding: 20px 25px;
-        border-radius: 12px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-        position: relative;
-        max-width: 90vw;
-        min-width: 280px;
-        width: auto;
-        gap: 15px;
-      }
-
-      .spinner {
-        width: 24px;
-        height: 24px;
-        border: 3px solid rgba(0, 255, 0, 0.2);
-        border-top: 3px solid #299229;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        flex-shrink: 0;
-      }
-
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
+        .icon-frame img {
+            width: 24px;
+            height: 24px;
         }
-      }
 
-      .text {
-        font-size: 16px;
-        font-weight: 500;
-        color: #333;
-        text-align: center;
-        flex: 1;
-        min-width: 0;
-      }
+        .iconFrame-label {
+            display: block;
+            color: var(--text-light);
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
 
-      .brand {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex-shrink: 0;
-        margin-left: 15px;
-      }
+        .icon-value {
+            font-size: 14px;
+            font-weight: 600;
+        }
 
-      .brand img {
-        height: 24px;
-        user-select: none;
-        margin-bottom: 4px;
-      }
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 15px 20px;
+            font-size: 14px;
+        }
 
-      .brand a {
-        color: #666;
-        font-size: 11px;
-        text-decoration: none;
-        line-height: 1.2;
-      }
+        .ar-footer {
+            display: none;
+        }
 
-      .brand a:hover,
-      .brand a:focus {
-        text-decoration: underline;
-      }
+        body[data-lang="ar"] .en-footer,
+        body[data-lang="ur"] .en-footer {
+            display: none;
+        }
 
-      .col {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 4px;
-        white-space: nowrap;
-      }
+        body[data-lang="ar"] .ar-footer,
+        body[data-lang="ur"] .ar-footer {
+            display: inline;
+        }
 
-      /* Project container initially hidden */
-      .project {
-        display: none;
-      }
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .flex-section {
+                flex-direction: column;
+            }
+        }
 
-      /* Enhanced responsive design for loading animation */
-      @media (max-width: 400px) {
+        @media (max-width: 768px) {
+            .profile-card {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-details {
+                width: 100%;
+            }
+
+            .icon-grid {
+                gap: 15px;
+            }
+
+            .icon-box {
+                min-width: 45%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .icon-box {
+                min-width: 100%;
+            }
+        }
+
+        /* Loading Animation Styles */
         .loading-container {
-          padding: 15px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: url("https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920&h=1080&fit=crop&crop=center") no-repeat center/cover;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 10px;
         }
 
         .container {
-          padding: 15px 20px;
-          min-width: 260px;
-          text-align: center;
-          gap: 15px;
+            display: flex;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            position: relative;
+            max-width: 90vw;
+            min-width: 280px;
+            width: auto;
+            gap: 15px;
         }
 
         .spinner {
-          width: 20px;
-          height: 20px;
-          border-width: 2px;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(0, 255, 0, 0.2);
+            border-top: 3px solid #299229;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         .text {
-          font-size: 14px;
-          order: 2;
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+            text-align: center;
+            flex: 1;
+            min-width: 0;
         }
 
         .brand {
-          order: 3;
-          margin-left: 0;
-          margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            margin-left: 15px;
         }
 
         .brand img {
-          height: 20px;
+            height: 24px;
+            user-select: none;
+            margin-bottom: 4px;
         }
 
         .brand a {
-          font-size: 10px;
+            color: #666;
+            font-size: 11px;
+            text-decoration: none;
+            line-height: 1.2;
+        }
+
+        .brand a:hover,
+        .brand a:focus {
+            text-decoration: underline;
         }
 
         .col {
-          justify-content: center;
-          font-size: 10px;
-        }
-      }
-
-      @media (max-width: 320px) {
-        .loading-container {
-          padding: 10px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
         }
 
-        .container {
-          padding: 12px 15px;
-          min-width: 240px;
-          border-radius: 8px;
+        /* Project container initially hidden */
+        .project {
+            display: none;
         }
 
-        .spinner {
-          width: 18px;
-          height: 18px;
+        /* Enhanced responsive design for loading animation */
+        @media (max-width: 400px) {
+            .loading-container {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 15px 20px;
+                min-width: 260px;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .spinner {
+                width: 20px;
+                height: 20px;
+                border-width: 2px;
+            }
+
+            .text {
+                font-size: 14px;
+                order: 2;
+            }
+
+            .brand {
+                order: 3;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .brand img {
+                height: 20px;
+            }
+
+            .brand a {
+                font-size: 10px;
+            }
+
+            .col {
+                justify-content: center;
+                font-size: 10px;
+            }
         }
 
-        .text {
-          font-size: 13px;
-          line-height: 1.3;
+        @media (max-width: 320px) {
+            .loading-container {
+                padding: 10px;
+            }
+
+            .container {
+                padding: 12px 15px;
+                min-width: 240px;
+                border-radius: 8px;
+            }
+
+            .spinner {
+                width: 18px;
+                height: 18px;
+            }
+
+            .text {
+                font-size: 13px;
+                line-height: 1.3;
+            }
+
+            .brand img {
+                height: 18px;
+            }
+
+            .brand a {
+                font-size: 9px;
+            }
         }
 
-        .brand img {
-          height: 18px;
+        @media (max-width: 280px) {
+            .loading-container {
+                padding: 8px;
+            }
+
+            .container {
+                padding: 10px 12px;
+                min-width: 220px;
+                gap: 12px;
+            }
+
+            .spinner {
+                width: 16px;
+                height: 16px;
+            }
+
+            .text {
+                font-size: 12px;
+                font-weight: 400;
+            }
+
+            .brand {
+                margin-top: 8px;
+            }
+
+            .brand img {
+                height: 16px;
+            }
+
+            .brand a {
+                font-size: 8px;
+            }
         }
 
-        .brand a {
-          font-size: 9px;
-        }
-      }
+        /* For very small screens (200px) */
+        @media (max-width: 240px) {
+            .loading-container {
+                padding: 5px;
+            }
 
-      @media (max-width: 280px) {
-        .loading-container {
-          padding: 8px;
-        }
+            .container {
+                padding: 8px 10px;
+                min-width: 190px;
+                gap: 10px;
+            }
 
-        .container {
-          padding: 10px 12px;
-          min-width: 220px;
-          gap: 12px;
-        }
+            .spinner {
+                width: 14px;
+                height: 14px;
+            }
 
-        .spinner {
-          width: 16px;
-          height: 16px;
-        }
+            .text {
+                font-size: 11px;
+            }
 
-        .text {
-          font-size: 12px;
-          font-weight: 400;
-        }
+            .brand img {
+                height: 14px;
+            }
 
-        .brand {
-          margin-top: 8px;
-        }
+            .brand a {
+                font-size: 7px;
+            }
 
-        .brand img {
-          height: 16px;
+            .col {
+                gap: 2px;
+            }
         }
-
-        .brand a {
-          font-size: 8px;
-        }
-      }
-
-      /* For very small screens (200px) */
-      @media (max-width: 240px) {
-        .loading-container {
-          padding: 5px;
-        }
-
-        .container {
-          padding: 8px 10px;
-          min-width: 190px;
-          gap: 10px;
-        }
-
-        .spinner {
-          width: 14px;
-          height: 14px;
-        }
-
-        .text {
-          font-size: 11px;
-        }
-
-        .brand img {
-          height: 14px;
-        }
-
-        .brand a {
-          font-size: 7px;
-        }
-
-        .col {
-          gap: 2px;
-        }
-      }
     </style>
-  </head>
-  <body>
-    <!-- Loading Animation -->
-    <div style="background-image: url('/static/hj9.png');" class="loading-container" id="loading-container">
-      <div class="container" role="alert" aria-live="polite" aria-busy="true">
+</head>
+<body>
+<!-- Loading Animation -->
+<div style="background-image: url('/static/hj9.png');" class="loading-container" id="loading-container">
+    <div class="container" role="alert" aria-live="polite" aria-busy="true">
         <div class="spinner" id="spinner" aria-label="Загрузка"></div>
         <div class="text" id="statusText">Идет проверка...</div>
         <div class="brand" aria-hidden="true">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cloudflare_Logo.svg/1200px-Cloudflare_Logo.svg.png"
-            alt="Cloudflare"
-            draggable="false"
-          />
-          <div class="col">
-            <a href="#" tabindex="-1">Конфиденциальность</a> •
-            <a href="#" tabindex="-1">Условия</a>
-          </div>
+            <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Cloudflare_Logo.svg/1200px-Cloudflare_Logo.svg.png"
+                    alt="Cloudflare"
+                    draggable="false"
+            />
+            <div class="col">
+                <a href="#" tabindex="-1">Конфиденциальность</a> •
+                <a href="#" tabindex="-1">Условия</a>
+            </div>
         </div>
-      </div>
+    </div>
+</div>
+
+<!-- Main Project -->
+<div class="project" id="project">
+    <header class="main-header">
+        <div class="header-logo" id="header-logo">
+            <img src="{% static 'logo.png' %}" alt="Logo">
+        </div>
+        <div class="language-toggle" id="lang-toggle" onclick="toggleLanguageMenu()">
+            <img src="{% static 'globe.png' %}" alt="Lang" class="globe-icon">
+            <span id="lang-label">العربية</span>
+        </div>
+        <div class="language-menu" id="language-menu">
+            <div style="color: #273550;" onclick="selectLanguage('en')"><img src="{% static 'us.png' %}"> English</div>
+            <div style="color: #273550;" onclick="selectLanguage('fr')"><img src="{% static 'fr.png' %}"> Français</div>
+            <div style="color: #273550;" onclick="selectLanguage('tr')"><img src="{% static 'tr.png' %}"> Türkçe</div>
+            <div style="color: #273550;" onclick="selectLanguage('bn')"><img src="{% static 'bd.png' %}"> বাংলা</div>
+            <div style="color: #273550;" onclick="selectLanguage('ar')"><img src="{% static 'ksa.png' %}"> العربية</div>
+            <div style="color: #273550;" onclick="selectLanguage('hi')"><img src="{% static 'in.png' %}"> हिंदी</div>
+            <div style="color: #273550;" onclick="selectLanguage('id')"><img src="{% static 'id.png' %}"> Bahasa
+                Indonesia
+            </div>
+            <div style="color: #273550;" onclick="selectLanguage('fil')"><img src="{% static 'ph.png' %}"> Filipino
+            </div>
+            <div style="color: #273550;" onclick="selectLanguage('ur')"><img src="{% static 'pk.png' %}"> اردو</div>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <!-- Profile Section -->
+        <section class="profile-card">
+            <div class="profile-photo-box">
+                <img src="
+
+                        {% if id_card.user_image %}{{ id_card.user_image.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}"
+                     alt="Photo" class="profile-photo">
+            </div>
+
+            <div class="profile-details">
+                <div class="detail-column">
+                    <div class="detail-pair">
+                        <label class="detailPair-label" data-en="First Name" data-ar="الاسم الأول" data-tr="Adı"
+                               data-fr="Prénom" data-ur="پہلا نام" data-bn="প্রথম নাম" data-hi="प्रथम नाम"
+                               data-id="Nama Depan" data-fil="Pangalan"></label>
+                        <div class="profile-value" data-en="{{ id_card.first_name }}" data-ar="{{ id_card.first_name }}"
+                             data-tr="{{ id_card.first_name }}" data-fr="{{ id_card.first_name }}"
+                             data-ur="{{ id_card.first_name }}"></div>
+                    </div>
+                    <div class="detail-pair">
+                        <label class="detailPair-label"
+                               data-en="Gender"
+                               data-ar="الجنس"
+                               data-tr="Cinsiyet"
+                               data-fr="Genre"
+                               data-ur="صنف">
+                        </label>
+                        <div class="profile-value"
+                             data-en="{{ id_card.gender }}"
+                             data-ar="{{ id_card.gender }}"
+                             data-tr="{{ id_card.gender }}"
+                             data-fr="{{ id_card.gender }}"
+                             data-ur="{{ id_card.gender }}">
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-column">
+                    <div class="detail-pair">
+                        <label class="detailPair-label" data-en="Nationality" data-ar="الجنسية" data-tr="Uyruk"
+                               data-fr="Nationalité" data-ur="قومیت" data-bn="জাতীয়তা" data-hi="राष्ट्रीयता"
+                               data-id="Kebangsaan" data-fil="Nasyonalidad"></label>
+                        <div class="profile-value" data-en="{{ id_card.country }}" data-ar="{{ id_card.country }}"
+                             data-tr="{{ id_card.country }}" data-fr="{{ id_card.country }}"
+                             data-ur="{{ id_card.country }}"></div>
+                    </div>
+                    <div class="detail-pair">
+                        <label class="detailPair-label" data-en="Date of Birth" data-ar="تاريخ الميلاد"
+                               data-tr="Doğum Tarihi" data-fr="Date de naissance" data-ur="تاریخ پیدائش"
+                               data-bn="জন্ম তারিখ" data-hi="जन्म तिथि" data-id="Tanggal Lahir"
+                               data-fil="Araw ng Kapanganakan"></label>
+                        <div class="profile-value" data-en="{{ id_card.birthday }}" data-ar="{{ id_card.birthday }}"
+                             data-tr="{{ id_card.birthday }}" data-fr="{{ id_card.birthday }}"
+                             data-ur="{{ id_card.birthday }}"></div>
+                    </div>
+                </div>
+                {#                <div class="detail-column">#}
+                {#                  <div class="detail-pair">#}
+                {#                    <label class="detailPair-label" data-en="Surname" data-ar="اللقب" data-tr="Sülale" data-fr="Surnom" data-ur="تخلص" data-bn="উপাধি" data-hi="उपनाम" data-id="Nama Keluarga" data-fil="Apelyido ng Pamilya"></label>#}
+                {#                    <div class="profile-value" data-en="{{ id_card.surname }}" data-ar="{{ id_card.surname }}" data-tr="{{ id_card.surname }}" data-fr="{{ id_card.surname }}" data-ur="{{ id_card.surname }}"></div>#}
+                {#                  </div>#}
+                <div class="detail-pair">
+                    <label class="detailPair-label" data-en="Phone" data-ar="الهاتف" data-tr="Telefon"
+                           data-fr="Téléphone" data-ur="فون" data-bn="ফোন" data-hi="फोन" data-id="Telepon"
+                           data-fil="Telepono"></label>
+                    <div class="profile-value" data-en="{{ id_card.phone }}" data-ar="{{ id_card.phone }}"
+                         data-tr="{{ id_card.phone }}" data-fr="{{ id_card.phone }}"
+                         data-ur="{{ id_card.phone }}"></div>
+                </div>
+            </div>
+</div>
+</section>
+<!-- Permit + Map Section -->
+<section class="flex-section" id="flex-section">
+    <div class="info-card">
+        <h2 class="info-title" data-en="Hajj Permit Data" data-ar="بيانات تصريح الحج" data-tr="Hac İzin Bilgisi"
+            data-fr="Données du permis Hajj" data-ur="حج پرمٹ کی معلومات" data-bn="হজ্ব পারমিট ডাটা"
+            data-hi="हज परमिट डेटा" data-id="Data Izin Haji" data-fil="Data ng Pahintulot sa Hajj"></h2>
+
+        <div class="info-row">
+            <label class="infoRow-label" data-en="Permit Type" data-ar="نوع التصريح" data-tr="İzin Türü"
+                   data-fr="Type de permis" data-ur="اجازت کی قسم" data-bn="পারমিটের ধরন" data-hi="अनुमति का प्रकार"
+                   data-id="Jenis Izin" data-fil="Uri ng Pahintulot"></label>
+            <div class="info-value" data-en="External Pilgrims MOFA Hajj Visa Number"
+                 data-ar="حجاج الخارج - تأشيرة حج صادرة من وزارة الخارجية "
+                 data-tr="External Pilgrims MOFA Hajj Visa Number" data-fr="External Pilgrims MOFA Hajj Visa Number"
+                 data-ur="External Pilgrims MOFA Hajj Visa Number"></div>
+        </div>
+
+        <div class="info-row">
+            <label class="infoRow-label" data-en="Permit ID" data-ar="رقم التصريح" data-tr="İzin Kimliği"
+                   data-fr="ID du permis" data-ur="پرمٹ آئی ڈی" data-bn="পারমিট নম্বর" data-hi="अनुमति आईडी"
+                   data-id="ID Izin" data-fil="Permit ID"></label>
+            <div class="info-value" data-en="{{ id_card.id_badge }}" data-ar="{{ id_card.id_badge }}"
+                 data-tr="{{ id_card.id_badge }}" data-fr="{{ id_card.id_badge }}"
+                 data-ur="{{ id_card.id_badge }}"></div>
+        </div>
+
+        <div class="info-row">
+            <label class="infoRow-label" data-en="Passport Number" data-ar="جواز سفر" data-tr="Pasaport Numarası"
+                   data-fr="Numéro de passeport" data-ur="پاسپورٹ نمبر" data-bn="পাসপোর্ট নম্বর" data-hi="पासपोर्ट नंबर"
+                   data-id="Nomor Paspor" data-fil="Numero ng Pasaporte"></label>
+            <div class="info-value" data-en="{{ id_card.id_pass }}" data-ar="{{ id_card.id_pass }}"
+                 data-tr="{{ id_card.id_pass }}" data-fr="{{ id_card.id_pass }}" data-ur="{{ id_card.id_pass }}"></div>
+        </div>
+
+        <div class="info-row">
+            <label class="infoRow-label" data-en="The Authority" data-ar="الجهة" data-tr="Yetkili Kurum"
+                   data-fr="Autorité" data-ur="ادارہ" data-bn="কর্তৃপক্ষ" data-hi="प्राधिकरण" data-id="Otoritas"
+                   data-fil="Awtoridad"></label>
+            <div class="info-value" data-en="Supreme Hajj Committee" data-ar="اللجنة العليا للحج"
+                 data-tr="Yüksek Hac Komitesi" data-fr="Comité Suprême du Hajj" data-ur="سپریم حج کمیٹی"></div>
+        </div>
+
+        <div class="info-row">
+            <label class="infoRow-label" data-en="Service Provider" data-ar="مقدم الخدمة" data-tr="Hizmet Sağlayıcı"
+                   data-fr="Fournisseur de service" data-ur="سروس فراہم کنندہ" data-bn="সেবা প্রদানকারী"
+                   data-hi="सेवा प्रदाता" data-id="Penyedia Layanan" data-fil="Tagapagbigay ng Serbisyo"></label>
+            <div class="info-value" data-en="شركة مشارق الماسية لخدمات الحجاج"
+                 data-ar="شركة مشارق الماسية لخدمات الحجاج" data-tr="شركة مشارق الماسية لخدمات الحجاج"
+                 data-fr="شركة مشارق الماسية لخدمات الحجاج" data-ur="شركة مشارق الماسية لخدمات الحجاج"></div>
+        </div>
+    </div>
     </div>
 
-    <!-- Main Project -->
-    <div class="project" id="project">
-        <header class="main-header">
-            <div class="header-logo" id="header-logo">
-              <img src="{% static 'logo.png' %}" alt="Logo">
+    <div class="map-card">
+        <div class="map-tabs">
+            <button class="map-tab active" data-map="makkah" data-en="Makkah" data-ar="مكة" data-tr="Mekke"
+                    data-fr="La Mecque" data-ur="مکہ" data-bn="মক্কা" data-hi="मक्का" data-id="Mekkah" data-fil="Makkah"
+                    onclick="showMap('makkah', event)"></button>
+            <button class="map-tab" data-map="madinah" data-en="Madinah" data-ar="المدينة" data-tr="Medine"
+                    data-fr="Médine" data-ur="مدینہ" data-bn="মদিনা" data-hi="मदीना" data-id="Madinah"
+                    data-fil="Madinah" onclick="showMap('madinah', event)"></button>
+            <button class="map-tab" data-map="mina" data-en="Mina" data-ar="منى" data-tr="Mina" data-fr="Mina"
+                    data-ur="منیٰ" data-bn="মিনা" data-hi="मिना" data-id="Mina" data-fil="Mina"
+                    onclick="showMap('mina', event)"></button>
+            <button class="map-tab" data-map="arafat" data-en="Arafat" data-ar="عرفات" data-tr="Arafat" data-fr="Arafat"
+                    data-ur="عرفات" data-bn="আরাফাত" data-hi="अराफात" data-id="Arafah" data-fil="Arafat"
+                    onclick="showMap('arafat', event)"></button>
+        </div>
+
+        <div id="map-frame-container">
+            <div class="map-frame" data-map="makkah" style="display: block;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.584310195011!2d39.8151724!3d21.4062664!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI0JzIyLjYiTiAzOcKwNDknMDMuOSJF!5e0!3m2!1str!2ssa!4v1747248177236!5m2!1str!2ssa"
+                        width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <div class="language-toggle" id="lang-toggle" onclick="toggleLanguageMenu()">
-              <img src="{% static 'globe.png' %}" alt="Lang" class="globe-icon">
-              <span id="lang-label">العربية</span>
+            <div class="map-frame" data-map="madinah" style="display: none;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3631.337744106618!2d39.6051121!3d24.4737519!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDI4JzI1LjUiTiAzOcKwMzYnMjcuNyJF!5e0!3m2!1str!2ssa!4v1747248236459!5m2!1str!2ssa"
+                        width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-            <div class="language-menu" id="language-menu">
-              <div style="color: #273550;" onclick="selectLanguage('en')"><img src="{% static 'us.png' %}"> English</div>
-              <div style="color: #273550;" onclick="selectLanguage('fr')"><img src="{% static 'fr.png' %}"> Français</div>
-              <div style="color: #273550;" onclick="selectLanguage('tr')"><img src="{% static 'tr.png' %}"> Türkçe</div>
-              <div style="color: #273550;" onclick="selectLanguage('bn')"><img src="{% static 'bd.png' %}"> বাংলা</div>
-              <div style="color: #273550;" onclick="selectLanguage('ar')"><img src="{% static 'ksa.png' %}"> العربية</div>
-              <div style="color: #273550;" onclick="selectLanguage('hi')"><img src="{% static 'in.png' %}"> हिंदी</div>
-              <div style="color: #273550;" onclick="selectLanguage('id')"><img src="{% static 'id.png' %}"> Bahasa Indonesia</div>
-              <div style="color: #273550;" onclick="selectLanguage('fil')"><img src="{% static 'ph.png' %}"> Filipino</div>
-              <div style="color: #273550;" onclick="selectLanguage('ur')"><img src="{% static 'pk.png' %}"> اردو</div>
+            <div class="map-frame" data-map="mina" style="display: none;">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.1898048931994!2d39.8911021!3d21.4217833!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI1JzE4LjQiTiAzOcKwNTMnMzcuMiJF!5e0!3m2!1str!2ssa!4v1747248287372!5m2!1str!2ssa"
+                        width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
-          </header>
-
-          <main class="content-wrapper">
-            <!-- Profile Section -->
-            <section class="profile-card">
-              <div class="profile-photo-box">
-                <img src="{% if id_card.user_image %}{{ id_card.user_image.url }}{% else %}{% static 'default_avatar.png' %}{% endif %}" alt="Photo" class="profile-photo">
-              </div>
-
-              <div class="profile-details">
-                <div class="detail-column">
-                  <div class="detail-pair">
-                    <label class="detailPair-label" data-en="First Name" data-ar="الاسم الأول" data-tr="Adı" data-fr="Prénom" data-ur="پہلا نام" data-bn="প্রথম নাম" data-hi="प्रथम नाम" data-id="Nama Depan" data-fil="Pangalan"></label>
-                    <div class="profile-value" data-en="{{ id_card.first_name }}" data-ar="{{ id_card.first_name }}" data-tr="{{ id_card.first_name }}" data-fr="{{ id_card.first_name }}" data-ur="{{ id_card.first_name }}"></div>
-                  </div>
-                  <div class="detail-pair">
-                    <label class="detailPair-label" data-en="Last Name" data-ar="اسم العائلة" data-tr="Soyadı" data-fr="Nom de famille" data-ur="آخری نام" data-bn="শেষ নাম" data-hi="अंतिम नाम" data-id="Nama Belakang" data-fil="Apelyido"></label>
-                    <div class="profile-value" data-en="{{ id_card.last_name }}" data-ar="{{ id_card.last_name }}" data-tr="{{ id_card.last_name }}" data-fr="{{ id_card.last_name }}" data-ur="{{ id_card.last_name }}"></div>
-                  </div>
-                </div>
-                <div class="detail-column">
-                  <div class="detail-pair">
-                    <label class="detailPair-label" data-en="Nationality" data-ar="الجنسية" data-tr="Uyruk" data-fr="Nationalité" data-ur="قومیت" data-bn="জাতীয়তা" data-hi="राष्ट्रीयता" data-id="Kebangsaan" data-fil="Nasyonalidad"></label>
-                    <div class="profile-value" data-en="{{ id_card.country }}" data-ar="{{ id_card.country }}" data-tr="{{ id_card.country }}" data-fr="{{ id_card.country }}" data-ur="{{ id_card.country }}"></div>
-                  </div>
-                  <div class="detail-pair">
-                    <label class="detailPair-label" data-en="Date of Birth" data-ar="تاريخ الميلاد" data-tr="Doğum Tarihi" data-fr="Date de naissance" data-ur="تاریخ پیدائش" data-bn="জন্ম তারিখ" data-hi="जन्म तिथि" data-id="Tanggal Lahir" data-fil="Araw ng Kapanganakan"></label>
-                    <div class="profile-value" data-en="{{ id_card.birthday }}" data-ar="{{ id_card.birthday }}" data-tr="{{ id_card.birthday }}" data-fr="{{ id_card.birthday }}" data-ur="{{ id_card.birthday }}"></div>
-                  </div>
-                </div>
-                <div class="detail-column">
-                  <div class="detail-pair">
-                    <label class="detailPair-label" data-en="Surname" data-ar="اللقب" data-tr="Sülale" data-fr="Surnom" data-ur="تخلص" data-bn="উপাধি" data-hi="उपनाम" data-id="Nama Keluarga" data-fil="Apelyido ng Pamilya"></label>
-                    <div class="profile-value" data-en="{{ id_card.surname }}" data-ar="{{ id_card.surname }}" data-tr="{{ id_card.surname }}" data-fr="{{ id_card.surname }}" data-ur="{{ id_card.surname }}"></div>
-                  </div>
-                  <div class="detail-pair">
-                    <label class="detailPair-label" data-en="Phone" data-ar="الهاتف" data-tr="Telefon" data-fr="Téléphone" data-ur="فون" data-bn="ফোন" data-hi="फोन" data-id="Telepon" data-fil="Telepono"></label>
-                    <div class="profile-value" data-en="{{ id_card.phone }}" data-ar="{{ id_card.phone }}" data-tr="{{ id_card.phone }}" data-fr="{{ id_card.phone }}" data-ur="{{ id_card.phone }}"></div>
-                  </div>
-                </div>
-              </div>
-            </section>
-            <!-- Permit + Map Section -->
-            <section class="flex-section" id="flex-section">
-              <div class="info-card">
-                <h2 class="info-title" data-en="Hajj Permit Data" data-ar="بيانات تصريح الحج" data-tr="Hac İzin Bilgisi" data-fr="Données du permis Hajj" data-ur="حج پرمٹ کی معلومات" data-bn="হজ্ব পারমিট ডাটা" data-hi="हज परमिट डेटा" data-id="Data Izin Haji" data-fil="Data ng Pahintulot sa Hajj"></h2>
-
-                <div class="info-row">
-                  <label class="infoRow-label" data-en="Permit Type" data-ar="نوع التصريح" data-tr="İzin Türü" data-fr="Type de permis" data-ur="اجازت کی قسم" data-bn="পারমিটের ধরন" data-hi="अनुमति का प्रकार" data-id="Jenis Izin" data-fil="Uri ng Pahintulot"></label>
-                  <div class="info-value" data-en="External Pilgrims MOFA Hajj Visa Number" data-ar="حجاج الخارج - تأشيرة حج صادرة من وزارة الخارجية " data-tr="External Pilgrims MOFA Hajj Visa Number" data-fr="External Pilgrims MOFA Hajj Visa Number" data-ur="External Pilgrims MOFA Hajj Visa Number"></div>
-                </div>
-
-                <div class="info-row">
-                  <label class="infoRow-label" data-en="Permit ID" data-ar="رقم التصريح" data-tr="İzin Kimliği" data-fr="ID du permis" data-ur="پرمٹ آئی ڈی" data-bn="পারমিট নম্বর" data-hi="अनुमति आईडी" data-id="ID Izin" data-fil="Permit ID"></label>
-                  <div class="info-value" data-en="{{ id_card.id_badge }}" data-ar="{{ id_card.id_badge }}" data-tr="{{ id_card.id_badge }}" data-fr="{{ id_card.id_badge }}" data-ur="{{ id_card.id_badge }}"></div>
-                </div>
-
-                <div class="info-row">
-                  <label class="infoRow-label" data-en="Passport Number" data-ar="جواز سفر" data-tr="Pasaport Numarası" data-fr="Numéro de passeport" data-ur="پاسپورٹ نمبر" data-bn="পাসপোর্ট নম্বর" data-hi="पासपोर्ट नंबर" data-id="Nomor Paspor" data-fil="Numero ng Pasaporte"></label>
-                  <div class="info-value" data-en="{{ id_card.id_pass }}" data-ar="{{ id_card.id_pass }}" data-tr="{{ id_card.id_pass }}" data-fr="{{ id_card.id_pass }}" data-ur="{{ id_card.id_pass }}"></div>
-                </div>
-
-                <div class="info-row">
-                  <label class="infoRow-label" data-en="The Authority" data-ar="الجهة" data-tr="Yetkili Kurum" data-fr="Autorité" data-ur="ادارہ" data-bn="কর্তৃপক্ষ" data-hi="प्राधिकरण" data-id="Otoritas" data-fil="Awtoridad"></label>
-                  <div class="info-value" data-en="Supreme Hajj Committee" data-ar="اللجنة العليا للحج" data-tr="Yüksek Hac Komitesi" data-fr="Comité Suprême du Hajj" data-ur="سپریم حج کمیٹی"></div>
-                </div>
-
-                <div class="info-row">
-                  <label class="infoRow-label" data-en="Service Provider" data-ar="مقدم الخدمة" data-tr="Hizmet Sağlayıcı" data-fr="Fournisseur de service" data-ur="سروس فراہم کنندہ" data-bn="সেবা প্রদানকারী" data-hi="सेवा प्रदाता" data-id="Penyedia Layanan" data-fil="Tagapagbigay ng Serbisyo"></label>
-                  <div class="info-value" data-en="شركة مشارق الماسية لخدمات الحجاج" data-ar="شركة مشارق الماسية لخدمات الحجاج" data-tr="شركة مشارق الماسية لخدمات الحجاج" data-fr="شركة مشارق الماسية لخدمات الحجاج" data-ur="شركة مشارق الماسية لخدمات الحجاج"></div>
-                </div>
-                </div>
-              </div>
-
-              <div class="map-card">
-                <div class="map-tabs">
-                  <button class="map-tab active" data-map="makkah" data-en="Makkah" data-ar="مكة" data-tr="Mekke" data-fr="La Mecque" data-ur="مکہ" data-bn="মক্কা" data-hi="मक्का" data-id="Mekkah" data-fil="Makkah" onclick="showMap('makkah', event)"></button>
-                  <button class="map-tab" data-map="madinah" data-en="Madinah" data-ar="المدينة" data-tr="Medine" data-fr="Médine" data-ur="مدینہ" data-bn="মদিনা" data-hi="मदीना" data-id="Madinah" data-fil="Madinah" onclick="showMap('madinah', event)"></button>
-                  <button class="map-tab" data-map="mina" data-en="Mina" data-ar="منى" data-tr="Mina" data-fr="Mina" data-ur="منیٰ" data-bn="মিনা" data-hi="मिना" data-id="Mina" data-fil="Mina" onclick="showMap('mina', event)"></button>
-                  <button class="map-tab" data-map="arafat" data-en="Arafat" data-ar="عرفات" data-tr="Arafat" data-fr="Arafat" data-ur="عرفات" data-bn="আরাফাত" data-hi="अराफात" data-id="Arafah" data-fil="Arafat" onclick="showMap('arafat', event)"></button>
-                </div>
-
-                <div id="map-frame-container">
-                  <div class="map-frame" data-map="makkah" style="display: block;">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.584310195011!2d39.8151724!3d21.4062664!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI0JzIyLjYiTiAzOcKwNDknMDMuOSJF!5e0!3m2!1str!2ssa!4v1747248177236!5m2!1str!2ssa" width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                  </div>
-                  <div class="map-frame" data-map="madinah" style="display: none;">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3631.337744106618!2d39.6051121!3d24.4737519!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjTCsDI4JzI1LjUiTiAzOcKwMzYnMjcuNyJF!5e0!3m2!1str!2ssa!4v1747248236459!5m2!1str!2ssa" width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                  </div>
-                  <div class="map-frame" data-map="mina" style="display: none;">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3714.1898048931994!2d39.8911021!3d21.4217833!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDI1JzE4LjQiTiAzOcKwNTMnMzcuMiJF!5e0!3m2!1str!2ssa!4v1747248287372!5m2!1str!2ssa" width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                  </div>
-                  <div class="map-frame" data-map="arafat" style="display: none;">
-                    <iframe class="map_iframe" src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa" width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </main>
-
-          <footer>
-            <span class="ar-footer">تحت إشراف لجنة الحج العليا</span>
-            <span class="en-footer">Under the supervision of the Supreme Hajj Committee</span>
-          </footer>
+            <div class="map-frame" data-map="arafat" style="display: none;">
+                <iframe class="map_iframe"
+                        src="https://www.google.com/maps/embed?pb=!1m13!1m8!1m3!1d3715.3328249792635!2d39.9820569!3d21.3767959!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDIyJzM2LjUiTiAzOcKwNTknMDQuNyJF!5e0!3m2!1str!2ssa!4v1747248341364!5m2!1str!2ssa"
+                        width="100%" height="390" style="border:0; border-radius:12px;" allowfullscreen=""
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
     </div>
+</section>
+</main>
 
-    <script>
-        window.mapData = {
-            makkah: "https://www.google.com/maps/place/21%C2%B024'22.6%22N+39%C2%B049'03.9%22E/@21.4062664,39.8151724,17z",
-            madinah: "https://www.google.com/maps/place/24%C2%B028'25.5%22N+39%C2%B036'27.7%22E/@24.4737519,39.6051121,17z",
-            mina: "https://www.google.com/maps/place/21%C2%B025'18.4%22N+39%C2%B053'37.2%22E/@21.4217833,39.8911021,17z",
-            arafat: "https://www.google.com/maps/place/21%C2%B022'36.5%22N+39%C2%B059'04.7%22E/@21.3767959,39.9820569,17z"
-        };
+<footer>
+    <span class="ar-footer">تحت إشراف لجنة الحج العليا</span>
+    <span class="en-footer">Under the supervision of the Supreme Hajj Committee</span>
+</footer>
+</div>
 
-        const languageMenu = document.getElementById('language-menu');
-        let isLanguageMenuOpen = false;
+<script>
+    window.mapData = {
+        makkah: "https://www.google.com/maps/place/21%C2%B024'22.6%22N+39%C2%B049'03.9%22E/@21.4062664,39.8151724,17z",
+        madinah: "https://www.google.com/maps/place/24%C2%B028'25.5%22N+39%C2%B036'27.7%22E/@24.4737519,39.6051121,17z",
+        mina: "https://www.google.com/maps/place/21%C2%B025'18.4%22N+39%C2%B053'37.2%22E/@21.4217833,39.8911021,17z",
+        arafat: "https://www.google.com/maps/place/21%C2%B022'36.5%22N+39%C2%B059'04.7%22E/@21.3767959,39.9820569,17z"
+    };
 
-        function toggleLanguageMenu() {
-            if (isLanguageMenuOpen) {
-                languageMenu.style.display = 'none';
-            } else {
-                languageMenu.style.display = 'block';
-            }
-            isLanguageMenuOpen = !isLanguageMenuOpen;
+    const languageMenu = document.getElementById('language-menu');
+    let isLanguageMenuOpen = false;
+
+    function toggleLanguageMenu() {
+        if (isLanguageMenuOpen) {
+            languageMenu.style.display = 'none';
+        } else {
+            languageMenu.style.display = 'block';
         }
+        isLanguageMenuOpen = !isLanguageMenuOpen;
+    }
 
-        // Close language menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const isClickInsideMenu = languageMenu.contains(event.target);
-            const isClickOnToggle = document.getElementById('lang-toggle').contains(event.target);
+    // Close language menu when clicking outside
+    document.addEventListener('click', function (event) {
+        const isClickInsideMenu = languageMenu.contains(event.target);
+        const isClickOnToggle = document.getElementById('lang-toggle').contains(event.target);
 
-            if (!isClickInsideMenu && !isClickOnToggle && isLanguageMenuOpen) {
-                languageMenu.style.display = 'none';
-                isLanguageMenuOpen = false;
-            }
-        });
-
-        // Language Selection
-        function selectLanguage(lang) {
-            document.body.setAttribute('data-lang', lang);
-
-            // Tanlangan tilga qarab til tanlash yorlig'ini o'zgartirish
-            const langNames = {
-                'en': 'English',
-                'ar': 'العربية',
-                'fr': 'Français',
-                'tr': 'Türkçe',
-                'bn': 'বাংলা',
-                'hi': 'हिंदी',
-                'id': 'Bahasa',
-                'fil': 'Filipino',
-                'ur': 'اردو'
-            };
-
-            // Yorliqni tanlangan tilga o'zgartirish
-            document.getElementById('lang-label').textContent = langNames[lang];
-
-            // Update text content based on data attributes
-            updateTextContent(lang);
-
-            // Toggle footer text visibility
-            if (lang === 'ar' || lang === 'ur') {
-                document.querySelector('.ar-footer').style.display = 'inline';
-                document.querySelector('.en-footer').style.display = 'none';
-            } else {
-                document.querySelector('.ar-footer').style.display = 'none';
-                document.querySelector('.en-footer').style.display = 'inline';
-            }
-
-            // Close the language menu
+        if (!isClickInsideMenu && !isClickOnToggle && isLanguageMenuOpen) {
             languageMenu.style.display = 'none';
             isLanguageMenuOpen = false;
         }
+    });
 
-        // Update text content for all elements with data-{lang} attributes
-        function updateTextContent(lang) {
-            const elements = document.querySelectorAll(`[data-${lang}]`);
+    // Language Selection
+    function selectLanguage(lang) {
+        document.body.setAttribute('data-lang', lang);
 
-            elements.forEach(element => {
-                const text = element.getAttribute(`data-${lang}`);
-                if (text) {
-                    element.textContent = text;
-                }
-            });
+        // Tanlangan tilga qarab til tanlash yorlig'ini o'zgartirish
+        const langNames = {
+            'en': 'English',
+            'ar': 'العربية',
+            'fr': 'Français',
+            'tr': 'Türkçe',
+            'bn': 'বাংলা',
+            'hi': 'हिंदी',
+            'id': 'Bahasa',
+            'fil': 'Filipino',
+            'ur': 'اردو'
+        };
+
+        // Yorliqni tanlangan tilga o'zgartirish
+        document.getElementById('lang-label').textContent = langNames[lang];
+
+        // Update text content based on data attributes
+        updateTextContent(lang);
+
+        // Toggle footer text visibility
+        if (lang === 'ar' || lang === 'ur') {
+            document.querySelector('.ar-footer').style.display = 'inline';
+            document.querySelector('.en-footer').style.display = 'none';
+        } else {
+            document.querySelector('.ar-footer').style.display = 'none';
+            document.querySelector('.en-footer').style.display = 'inline';
         }
 
-        // Map Tabs Functionality
-        function showMap(mapType, event) {
-            // Hide all map frames
-            const mapFrames = document.querySelectorAll('.map-frame');
-            mapFrames.forEach(frame => {
-                frame.style.display = 'none';
-            });
+        // Close the language menu
+        languageMenu.style.display = 'none';
+        isLanguageMenuOpen = false;
+    }
 
-            // Show the selected map frame
-            const selectedFrame = document.querySelector(`.map-frame[data-map="${mapType}"]`);
-            if (selectedFrame) {
-                selectedFrame.style.display = 'block';
+    // Update text content for all elements with data-{lang} attributes
+    function updateTextContent(lang) {
+        const elements = document.querySelectorAll(`[data-${lang}]`);
+
+        elements.forEach(element => {
+            const text = element.getAttribute(`data-${lang}`);
+            if (text) {
+                element.textContent = text;
             }
+        });
+    }
 
-            // Update active tab
-            if (event) {
-                const tabs = document.querySelectorAll('.map-tab');
-                tabs.forEach(tab => {
-                    tab.classList.remove('active');
-                });
-                event.currentTarget.classList.add('active');
-            }
-        }
-
-        // Initialize with English language on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set initial language
-            const initialLang = 'en';
-            document.body.setAttribute('data-lang', initialLang);
-
-            // Update text content for initial language
-            updateTextContent(initialLang);
-
-            // Set initial map
-            showMap('makkah');
+    // Map Tabs Functionality
+    function showMap(mapType, event) {
+        // Hide all map frames
+        const mapFrames = document.querySelectorAll('.map-frame');
+        mapFrames.forEach(frame => {
+            frame.style.display = 'none';
         });
 
-        // Loading Animation Logic
-        window.addEventListener("load", () => {
-            // 5 sekund davomida "tekshiruv"
+        // Show the selected map frame
+        const selectedFrame = document.querySelector(`.map-frame[data-map="${mapType}"]`);
+        if (selectedFrame) {
+            selectedFrame.style.display = 'block';
+        }
+
+        // Update active tab
+        if (event) {
+            const tabs = document.querySelectorAll('.map-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
+    }
+
+    // Initialize with English language on page load
+    document.addEventListener('DOMContentLoaded', function () {
+        // Set initial language
+        const initialLang = 'en';
+        document.body.setAttribute('data-lang', initialLang);
+
+        // Update text content for initial language
+        updateTextContent(initialLang);
+
+        // Set initial map
+        showMap('makkah');
+    });
+
+    // Loading Animation Logic
+    window.addEventListener("load", () => {
+        // 5 sekund davomida "tekshiruv"
+        setTimeout(() => {
+            // Tekshiruv tugadi, spinnerni olib tashla
+            const spinner = document.getElementById("spinner");
+            if (spinner) spinner.remove();
+
+            // Matnni yangilash
+            const statusText = document.getElementById("statusText");
+            statusText.textContent = "✔ Проверка завершена";
+
+            // Yana 1.5 sekund kutish
             setTimeout(() => {
-                // Tekshiruv tugadi, spinnerni olib tashla
-                const spinner = document.getElementById("spinner");
-                if (spinner) spinner.remove();
+                // Loading animatsiyasini yashirish
+                const loadingContainer = document.getElementById("loading-container");
+                if (loadingContainer) {
+                    loadingContainer.style.display = 'none';
+                }
 
-                // Matnni yangilash
-                const statusText = document.getElementById("statusText");
-                statusText.textContent = "✔ Проверка завершена";
-
-                // Yana 1.5 sekund kutish
-                setTimeout(() => {
-                    // Loading animatsiyasini yashirish
-                    const loadingContainer = document.getElementById("loading-container");
-                    if (loadingContainer) {
-                        loadingContainer.style.display = 'none';
-                    }
-
-                    // Asosiy loyihani ko'rsatish
-                    const project = document.getElementById("project");
-                    if (project) {
-                        project.style.display = 'flex';
-                        project.style.flexDirection = 'column';
-                    }
-                }, 1500);
-            }, 3000);
-        });
-    </script>
-  </body>
+                // Asosiy loyihani ko'rsatish
+                const project = document.getElementById("project");
+                if (project) {
+                    project.style.display = 'flex';
+                    project.style.flexDirection = 'column';
+                }
+            }, 1500);
+        }, 3000);
+    });
+</script>
+</body>
 </html>
