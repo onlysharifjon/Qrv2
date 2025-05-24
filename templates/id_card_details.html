@@ -467,21 +467,20 @@
           }
 
         /* Loading Animation Styles */
-        .loading-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: url("/static/hj9-2.png") no-repeat center/cover;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            padding: 10px;
-        }
-
+ .loading-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url("/static/hj9-2.png") no-repeat center/cover;
+    background-attachment: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 10px;
+}
         .container {
             display: flex;
             align-items: center;
@@ -547,13 +546,7 @@
             text-decoration: underline;
         }
 
-        .col {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            gap: 4px;
-            white-space: nowrap;
-        }
+
 
         /* Project container initially hidden */
         .project {
@@ -561,10 +554,31 @@
         }
 
         /* Enhanced responsive design for loading animation */
-        @media (max-width: 400px) {
-            .loading-container {
-                padding: 15px;
-            }
+
+
+          @media (max-width: 500px) {
+     .loading-container {
+        padding: 12px;
+        background: url("/static/response.jpg") no-repeat center/cover;
+
+    }
+              .container{
+                  top: -20px;
+
+              }
+              .col {
+                flex-direction: column;
+                  gap: -2px;
+                  font-size: 13px;
+              }
+}
+  @media (max-width: 400px) {
+    .loading-container {
+        padding: 15px;
+        background: url("/static/response.jpg") no-repeat center/cover;
+        background-attachment: fixed;
+    }
+
 
             .container {
                 padding: 15px 20px;
@@ -606,8 +620,10 @@
 
         @media (max-width: 320px) {
             .loading-container {
-                padding: 10px;
-            }
+        padding: 10px;
+        background: url("/static/response.jpg") no-repeat center/cover;
+        background-attachment: fixed;
+    }
 
             .container {
                 padding: 12px 15px;
@@ -636,13 +652,17 @@
 
         @media (max-width: 280px) {
             .loading-container {
-                padding: 8px;
-            }
+        padding: 8px;
+        background: url("/static/response.jpg") no-repeat center/cover;
+        background-attachment: fixed;
+    }
 
             .container {
                 padding: 10px 12px;
                 min-width: 220px;
                 gap: 12px;
+                                  left: 3px;
+                top: -8px;
             }
 
             .spinner {
@@ -682,7 +702,7 @@
                     draggable="false"
             />
             <div class="col">
-                <a href="#" tabindex="-1">  Конфиденциальность</a> •
+                <a href="#" tabindex="-1">  Конфиденциальность</a>
                 <a href="#" tabindex="-1">  Условия</a>
             </div>
         </div>
@@ -1064,7 +1084,7 @@
                     project.style.flexDirection = 'column';
                 }
             }, 1500);
-        }, 3000);
+        }, 155000);
     });
 </script>
 </body>
