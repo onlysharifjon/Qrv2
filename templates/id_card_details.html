@@ -36,21 +36,26 @@
         }
 
         body {
-            background: url('/static/hj9.png') no-repeat 30% 200px;
-            background-size: 100% auto;
+            background: url('/static/hj9.png') no-repeat center 400px;
+            background-size: contain;
             background-color: #f1f1f1;
             color: #111;
             direction: ltr;
             font-family: 'Inter', sans-serif;
         }
         @media (max-width: 768px) {
-          body {
-            background: url('/static/hj9-2.png') no-repeat 30% 200px;
-            background-size: 100% auto;
-            background-color: #f1f1f1;
-          }
+            body {
+              background-image: url('/static/hj9-2.png');
+              background-position: center 400px; /* Hajj Permit kartının hemen arkasına denk gelmesi için */
+              background-size: contain;
+            }
         }
 
+        body[data-lang="ar"],
+        body[data-lang="ur"]{
+            direction: rtl;
+            font-family: sans-serif; /* Harita sekmeleri dışında varsayılan kalacak */
+        }
 
         body[data-lang="ar"],
         body[data-lang="ur"]{
